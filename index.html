@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>CCD 相机选购指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+--bg:#FBF8F4;--card:rgba(255,255,255,0.72);--card-solid:#FFF;
+--text:#1A1A1A;--text-secondary:#6B6B6B;--text-tertiary:#A0A0A0;
+--accent:#E8A87C;--accent-light:#F5D5C0;--accent-dark:#D4956A;
+--border:rgba(0,0,0,0.06);--shadow:0 8px 32px rgba(0,0,0,0.06);
+--glass:rgba(255,255,255,0.6);--glass-border:rgba(255,255,255,0.8);
+--radius:20px;
+}
+html{font-size:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button{cursor:pointer;border:none;outline:none;font-family:inherit;background:none}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--border);outline:none;margin:16px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 2px 12px rgba(232,168,124,0.4)}
+
+/* Pages */
+.page{display:none;min-height:100vh;position:relative}
+.page.active{display:flex;flex-direction:column;animation:pageIn 0.5s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:none}}
+
+/* Home */
+.home{padding:80px 24px 60px;text-align:center;background:linear-gradient(180deg,#FBF8F4 0%,#F5EDE4 100%);position:relative;overflow:hidden}
+.home::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,168,124,0.15) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.home::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(200,180,160,0.1) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.home-badge{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:100px;font-size:12px;color:var(--text-secondary);margin-bottom:32px;animation:fadeUp 0.6s ease 0.1s both}
+.home-badge .dot{width:6px;height:6px;border-radius:50%;background:#4CD964}
+.home h1{font-size:clamp(32px,8vw,48px);font-weight:700;line-height:1.15;margin-bottom:16px;animation:fadeUp 0.6s ease 0.2s both}
+.home h1 .highlight{background:linear-gradient(135deg,var(--accent),#D4956A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home .desc{font-size:clamp(14px,3.5vw,17px);color:var(--text-secondary);line-height:1.7;margin-bottom:48px;animation:fadeUp 0.6s ease 0.3s both}
+.start-btn{display:inline-flex;align-items:center;gap:10px;padding:18px 44px;background:var(--text);color:#FFF;font-size:16px;font-weight:600;border-radius:60px;letter-spacing:0.5px;transition:all 0.3s;animation:fadeUp 0.6s ease 0.4s both;position:relative;z-index:1}
+.start-btn:active{transform:scale(0.97)}
+.home-stats{display:flex;justify-content:center;gap:40px;margin-top:60px;animation:fadeUp 0.6s ease 0.5s both}
+.stat{text-align:center}
+.stat .num{font-size:24px;font-weight:700;color:var(--accent)}
+.stat .label{font-size:11px;color:var(--text-tertiary);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+
+/* Progress */
+.progress-wrap{padding:0 24px;margin-top:20px}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-dark));border-radius:2px;transition:width 0.4s ease}
+.progress-text{font-size:12px;color:var(--text-tertiary);margin-top:8px;text-align:right}
+
+/* Questions */
+.q-page{padding:80px 24px 40px;display:flex;flex-direction:column;align-items:center}
+.q-page .q-num{font-size:12px;color:var(--accent);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.q-page .q-title{font-size:clamp(22px,5vw,28px);font-weight:700;margin-bottom:8px;text-align:center;line-height:1.3}
+.q-page .q-hint{font-size:14px;color:var(--text-secondary);margin-bottom:32px;text-align:center}
+.options{width:100%;max-width:480px;display:flex;flex-direction:column;gap:12px}
+.opt{padding:18px 20px;background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1.5px solid var(--border);border-radius:16px;display:flex;align-items:center;gap:14px;transition:all 0.25s ease;cursor:pointer}
+.opt:active{transform:scale(0.98)}
+.opt.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(232,168,124,0.08),rgba(245,213,192,0.12))}
+.opt .icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--bg)}
+.opt.selected .icon{background:var(--accent-light)}
+.opt .info{flex:1;min-width:0}
+.opt .info .title{font-size:15px;font-weight:600;margin-bottom:2px}
+.opt .info .desc{font-size:12px;color:var(--text-tertiary);line-height:1.4}
+.opt .check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:transparent;transition:all 0.25s}
+.opt.selected .check{border-color:var(--accent);background:var(--accent);color:#FFF}
+
+/* Budget */
+.budget-wrap{width:100%;max-width:480px;text-align:center}
+.budget-num{font-size:clamp(40px,10vw,56px);font-weight:700;color:var(--accent);margin-bottom:4px}
+.budget-label{font-size:14px;color:var(--text-secondary);margin-bottom:32px}
+.budget-range{display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);margin-top:8px}
+
+/* Next button */
+.next-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;background:var(--text);color:#FFF;font-size:15px;font-weight:600;border-radius:60px;margin-top:36px;transition:all 0.3s;opacity:0.3;pointer-events:none}
+.next-btn.active{opacity:1;pointer-events:auto}
+.next-btn:active{transform:scale(0.97)}
+
+/* Paywall */
+.paywall{padding:60px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,#FBF8F4 0%,#F5EDE4 100%)}
+.paywall-icon{width:80px;height:80px;border-radius:24px;background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px;box-shadow:var(--shadow)}
+.paywall h2{font-size:24px;font-weight:700;margin-bottom:8px}
+.paywall .desc{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:36px}
+.qr-card{width:240px;padding:28px 24px;background:var(--card-solid);border-radius:24px;box-shadow:var(--shadow);margin-bottom:24px}
+.qr-card .qr-header{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px}
+.qr-card .qr-header .alipay{color:#1677FF;font-weight:700;font-size:16px}
+.qr-card .qr-area{width:170px;height:170px;margin:0 auto 16px;background:linear-gradient(135deg,#1677FF,#0958D9);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#FFF}
+.qr-card .qr-area .amount{font-size:32px;font-weight:700}
+.qr-card .qr-area .sub{font-size:12px;opacity:0.8;margin-top:4px}
+.qr-card .qr-note{font-size:11px;color:var(--text-tertiary)}
+.paywall .hint{font-size:12px;color:var(--text-tertiary);margin-bottom:24px}
+.pay-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 44px;background:var(--accent);color:#FFF;font-size:15px;font-weight:600;border-radius:60px;transition:all 0.3s}
+.pay-btn:active{transform:scale(0.97)}
+
+/* Results */
+.results{padding:40px 24px 80px;display:flex;flex-direction:column;align-items:center}
+.results-header{text-align:center;margin-bottom:32px}
+.results-header .tag{display:inline-block;padding:6px 14px;background:var(--accent-light);color:var(--accent-dark);font-size:12px;font-weight:600;border-radius:100px;margin-bottom:16px}
+.results-header h2{font-size:clamp(24px,5vw,30px);font-weight:700;margin-bottom:6px}
+.results-header p{font-size:14px;color:var(--text-secondary)}
+.cam-card{width:100%;max-width:480px;background:var(--card-solid);border-radius:var(--radius);padding:24px;margin-bottom:16px;box-shadow:var(--shadow);animation:fadeUp 0.5s ease both;border:1px solid var(--border)}
+.cam-card .rank{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.cam-card h3{font-size:18px;font-weight:700;margin-bottom:2px}
+.cam-card .brand-line{font-size:13px;color:var(--text-secondary);margin-bottom:12px}
+.cam-card .specs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.cam-card .spec{padding:5px 10px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text-secondary)}
+.cam-card .price{font-size:22px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.cam-card .price-note{font-size:11px;color:var(--text-tertiary);margin-bottom:14px}
+.cam-card .reason{font-size:13px;color:var(--text-secondary);line-height:1.7;padding-top:14px;border-top:1px solid var(--border)}
+.restart-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:var(--text);color:#FFF;font-size:14px;font-weight:600;border-radius:60px;margin-top:16px}
+.upload-area{margin-top:16px;border:2px dashed #d4c4b0;border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .3s}
+.upload-area:hover{border-color:var(--accent);background:rgba(232,168,124,.05)}
+.upload-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px}
+.upload-icon{font-size:2rem}
+.upload-text{font-size:0.95rem;color:#555}
+.upload-hint{font-size:0.78rem;color:#999}
+.ocr-loading{display:flex;align-items:center;gap:10px;justify-content:center}
+.ocr-spinner{width:20px;height:20px;border:2px solid #e8d5c4;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.upload-preview{max-width:200px;max-height:200px;border-radius:8px;margin-top:12px}
+.success-msg{color:#27ae60;font-weight:600;font-size:1rem}
+.fail-msg{color:#e74c3c;font-size:0.9rem}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+
+<div id="home" class="page home active">
+  
+  <h1>找到你的<span class="highlight">CCD 相机</span></h1>
+  <p class="desc">回答 12 个简单的问题<br>我们帮你从 300+ 台经典 CCD 中找到最适合的那台</p>
+  <button class="start-btn" onclick="startQuiz()">开始测试 →</button>
+  <div class="home-stats">
+    <div class="stat"><div class="num">300+</div><div class="label">相机型号</div></div>
+    <div class="stat"><div class="num">6</div><div class="label">道问题</div></div>
+    <div class="stat"><div class="num">¥50</div><div class="label">起</div></div>
+  </div>
+</div>
+
+<div id="qPage" class="page q-page">
+  <div class="progress-wrap" style="width:100%;max-width:480px">
+    <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
+    <div class="progress-text" id="pText">1 / 6</div>
+  </div>
+  <div class="q-num" id="qNum"></div>
+  <div class="q-title" id="qTitle"></div>
+  <div class="q-hint" id="qHint"></div>
+  <div class="options" id="opts"></div>
+  <div id="budgetWrap" class="budget-wrap" style="display:none">
+    <div class="budget-num" id="bNum">¥500</div>
+    <div class="budget-label">你的预算（闲鱼参考价）</div>
+    <input type="range" id="bSlider" min="50" max="5000" value="500" step="50" oninput="updateBudget()">
+    <div class="budget-range"><span>¥50</span><span>¥1500</span><span>¥3000</span><span>¥5000+</span></div>
+  </div>
+  <button class="next-btn" id="nextBtn" onclick="nextQ()">继续 →</button>
+</div>
+
+<div id="paywall" class="page paywall">
+  <div class="paywall-icon">📸</div>
+  <h2>查看你的专属推荐</h2>
+  <p class="desc" style="font-size:1.1rem;font-weight:600;color:#333">支付 ¥3 解锁完整推荐结果</p>
+  <div class="qr-card">
+    <div class="qr-header"><span class="alipay">💙 支付宝</span></div>
+    <div class="qr-area">
+      <img src="qr.jpg" alt="支付宝收款码" style="width:100%;height:100%;object-fit:contain;border-radius:12px">
+    </div>
+    <div class="qr-note">打开支付宝扫一扫</div>
+  </div>
+  <p class="hint">付款备注：autofocus CCD相机咨询费</p>
+  <div class="pay-steps">
+    <div class="step"><span class="step-num">1</span> 打开支付宝扫一扫</div>
+    <div class="step"><span class="step-num">2</span> 支付 ¥3 并备注「autofocus CCD相机咨询费」</div>
+    <div class="step"><span class="step-num">3</span> 截图支付结果页面</div>
+    <div class="step"><span class="step-num">4</span> 上传截图验证</div>
+  </div>
+  <div class="invite-box" style="margin-bottom:20px;text-align:center">
+    <p style="font-size:0.9rem;color:#666;margin-bottom:10px">或输入邀请码免费查看</p>
+    <div style="display:flex;gap:8px;justify-content:center;align-items:center">
+      <input type="text" id="inviteCode" placeholder="输入8位邀请码" maxlength="8" style="width:160px;padding:12px 16px;border:1px solid #d4c4b0;border-radius:10px;font-size:1rem;text-align:center;letter-spacing:2px;background:var(--card);color:var(--text)">
+      <button onclick="checkInviteCode()" style="padding:12px 20px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer">验证</button>
+    </div>
+    <p id="inviteMsg" style="margin-top:8px;font-size:0.82rem;display:none"></p>
+  </div>
+  <div class="upload-area" id="uploadArea">
+    <input type="file" id="screenshotInput" accept="image/*" style="display:none">
+    <div class="upload-placeholder" id="uploadPlaceholder">
+      <span class="upload-icon">📷</span>
+      <span class="upload-text">点击上传支付截图</span>
+    </div>
+  </div>
+  <div id="ocrStatus" style="display:none;margin-top:12px">
+    <div class="ocr-loading">
+      <div class="ocr-spinner"></div>
+      <span id="ocrText">正在识别截图...</span>
+    </div>
+  </div>
+  <div id="ocrResult" style="display:none;margin-top:12px"></div>
+</div>
+
+<div id="results" class="page results">
+  <div class="results-header">
+    <div class="tag">✨ 为你精选</div>
+    <h2>你的 CCD 搭档</h2>
+    <p>根据你的偏好，我们选出了 5 台最适合你的 CCD 相机</p>
+  </div>
+  <div id="camCards"></div>
+  <button class="restart-btn" onclick="location.reload()">🔄 再测一次</button>
+</div>
+
+<script>
+var cams=[
+// ========== Canon IXUS 系列 (20款) ==========
+{name:"Canon IXUS 70",brand:"Canon",year:2007,sensor:"7MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"SD卡",features:["超薄金属机身","面部识别"],priceMin:600,priceMax:1200,style:["复古","卡片"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 75",brand:"Canon",year:2007,sensor:"7.1MP CCD",lens:"3x (35-105mm)",screen:"3寸 LCD",media:"SD卡",features:["3寸大屏","金属机身"],priceMin:600,priceMax:1200,style:["复古","大屏"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 80 IS",brand:"Canon",year:2008,sensor:"8MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"SD卡",features:["光学防抖","金属机身"],priceMin:600,priceMax:1200,style:["复古","日常"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 85 IS",brand:"Canon",year:2008,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"SD卡",features:["光学防抖","人脸追踪"],priceMin:600,priceMax:1200,style:["复古","卡片"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 86 IS",brand:"Canon",year:2008,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"SD卡",features:["智能AUTO","金属"],priceMin:600,priceMax:1200,style:["复古","卡片"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 90 IS",brand:"Canon",year:2008,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"3寸 LCD",media:"SD卡",features:["3寸大屏","光学防抖"],priceMin:600,priceMax:1200,style:["复古","大屏"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 95 IS",brand:"Canon",year:2009,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"SD卡",features:["智能场景","多彩外壳"],priceMin:700,priceMax:1300,style:["复古","可爱"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 100 IS",brand:"Canon",year:2009,sensor:"12.1MP CCD",lens:"3x (33-100mm)",screen:"2.5寸 LCD",media:"SD卡",features:["超薄15mm","720p视频"],priceMin:600,priceMax:1200,style:["超薄","视频"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 105",brand:"Canon",year:2010,sensor:"12MP CCD",lens:"4x (28-112mm)",screen:"2.7寸 LCD",media:"SD卡",features:["28mm广角","光学防抖"],priceMin:600,priceMax:1200,style:["复古","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 110 IS",brand:"Canon",year:2009,sensor:"12.1MP CCD",lens:"4x (28-112mm)",screen:"2.8寸 LCD",media:"SD卡",features:["28mm广角","720p视频"],priceMin:600,priceMax:1200,style:["广角","视频"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 115 HS",brand:"Canon",year:2011,sensor:"12MP CMOS",lens:"4x (28-112mm)",screen:"3寸 LCD",media:"SD卡",features:["HS System","1080p视频"],priceMin:600,priceMax:1200,style:["现代","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 125 HS",brand:"Canon",year:2012,sensor:"16.1MP CMOS",lens:"5x (24-120mm)",screen:"3寸 LCD",media:"SD卡",features:["24mm广角","1080p","HS"],priceMin:600,priceMax:1200,style:["广角","现代"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 130",brand:"Canon",year:2010,sensor:"14MP CCD",lens:"4x (28-112mm)",screen:"2.5寸 LCD",media:"SD卡",features:["超薄17mm","28mm广角"],priceMin:700,priceMax:1500,style:["超薄","卡片"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 132",brand:"Canon",year:2012,sensor:"16MP CCD",lens:"8x (28-224mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","28mm广角"],priceMin:500,priceMax:1000,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 140",brand:"Canon",year:2013,sensor:"16MP CCD",lens:"8x (28-224mm)",screen:"3寸 LCD",media:"SD卡",features:["8倍长焦","WiFi"],priceMin:500,priceMax:1000,style:["长焦","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 150",brand:"Canon",year:2014,sensor:"16MP CCD",lens:"8x (28-224mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","智能模式"],priceMin:400,priceMax:800,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 160",brand:"Canon",year:2015,sensor:"20MP CCD",lens:"8x (28-224mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","28mm"],priceMin:400,priceMax:800,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 170",brand:"Canon",year:2015,sensor:"20MP CCD",lens:"12x (25-300mm)",screen:"3寸 LCD",media:"SD卡",features:["12倍长焦","智能模式"],priceMin:400,priceMax:800,style:["长焦","旅行"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 175",brand:"Canon",year:2016,sensor:"20MP CCD",lens:"8x (28-224mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","720p"],priceMin:300,priceMax:600,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 185",brand:"Canon",year:2017,sensor:"20MP CCD",lens:"8x (28-224mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","智能"],priceMin:300,priceMax:600,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 190",brand:"Canon",year:2017,sensor:"20MP CCD",lens:"10x (24-240mm)",screen:"2.7寸 LCD",media:"SD卡",features:["10倍长焦","24mm"],priceMin:400,priceMax:800,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 210",brand:"Canon",year:2010,sensor:"14MP CCD",lens:"5x (24-120mm)",screen:"3.5寸触摸",media:"SD卡",features:["3.5寸触摸屏","24mm广角"],priceMin:800,priceMax:1500,style:["触摸","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon IXUS 230 HS",brand:"Canon",year:2011,sensor:"12MP CMOS",lens:"8x (28-224mm)",screen:"3寸 LCD",media:"SD卡",features:["8倍长焦","HS","1080p"],priceMin:600,priceMax:1200,style:["长焦","现代"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 240 HS",brand:"Canon",year:2012,sensor:"16.1MP CMOS",lens:"5x (24-120mm)",screen:"3.2寸触摸",media:"SD卡",features:["WiFi","触摸屏","24mm"],priceMin:700,priceMax:1300,style:["触摸","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 255 HS",brand:"Canon",year:2013,sensor:"12.1MP CMOS",lens:"10x (24-240mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","WiFi","24mm"],priceMin:700,priceMax:1300,style:["长焦","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 300 HS",brand:"Canon",year:2010,sensor:"10MP CMOS",lens:"3.8x (28-105mm)",screen:"3寸 LCD",media:"SD卡",features:["F2.0大光圈","HS系统"],priceMin:1000,priceMax:2000,style:["大光圈","金属"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 310 HS",brand:"Canon",year:2011,sensor:"12.1MP CMOS",lens:"4.4x (24-105mm)",screen:"3.5寸触摸",media:"SD卡",features:["F2.0","触摸屏","24mm"],priceMin:800,priceMax:1500,style:["大光圈","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 500 HS",brand:"Canon",year:2011,sensor:"12.1MP CMOS",lens:"12x (28-336mm)",screen:"3寸 LCD",media:"SD卡",features:["12倍长焦","超薄"],priceMin:600,priceMax:1200,style:["长焦","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon IXUS 510 HS",brand:"Canon",year:2012,sensor:"12.1MP CMOS",lens:"12x (28-336mm)",screen:"3.2寸触摸",media:"SD卡",features:["12倍长焦","触摸","WiFi"],priceMin:700,priceMax:1300,style:["长焦","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+
+// ========== Canon PowerShot A系列 (15款) ==========
+{name:"Canon A590 IS",brand:"Canon",year:2008,sensor:"8MP CCD",lens:"4x (35-140mm)",screen:"2.5寸 LCD",media:"SD卡",features:["全手动","光学防抖","取景器"],priceMin:200,priceMax:500,style:["实用","学习"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A800",brand:"Canon",year:2011,sensor:"10MP CCD",lens:"3.3x (37-122mm)",screen:"2.5寸 LCD",media:"SD卡",features:["AA电池","智能AUTO"],priceMin:80,priceMax:200,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A1200",brand:"Canon",year:2011,sensor:"12.1MP CCD",lens:"4x (28-112mm)",screen:"2.7寸 LCD",media:"SD卡",features:["28mm广角","取景器"],priceMin:150,priceMax:400,style:["实用","取景器"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A1300",brand:"Canon",year:2012,sensor:"16MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:150,priceMax:400,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A1400",brand:"Canon",year:2013,sensor:"16MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","ECO模式"],priceMin:100,priceMax:300,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A2200",brand:"Canon",year:2011,sensor:"14MP CCD",lens:"4x (28-112mm)",screen:"2.7寸 LCD",media:"SD卡",features:["28mm广角","720p视频"],priceMin:150,priceMax:400,style:["实用","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A2300",brand:"Canon",year:2012,sensor:"16MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:150,priceMax:400,style:["实用","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A2400 IS",brand:"Canon",year:2012,sensor:"16MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["光学防抖","智能"],priceMin:200,priceMax:500,style:["防抖","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A2500",brand:"Canon",year:2013,sensor:"16MP CCD",lens:"5x (28-140mm)",screen:"3寸 LCD",media:"SD卡",features:["5倍变焦","3寸屏"],priceMin:150,priceMax:400,style:["实用","大屏"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A2600",brand:"Canon",year:2013,sensor:"16MP CCD",lens:"5x (28-140mm)",screen:"3寸 LCD",media:"SD卡",features:["WiFi","5倍变焦"],priceMin:200,priceMax:500,style:["WiFi","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A3500 IS",brand:"Canon",year:2013,sensor:"16MP CCD",lens:"5x (28-140mm)",screen:"3寸触摸",media:"SD卡",features:["触摸屏","光学防抖"],priceMin:200,priceMax:500,style:["触摸","防抖"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A3600 IS",brand:"Canon",year:2014,sensor:"16MP CCD",lens:"8x (28-224mm)",screen:"3寸 LCD",media:"SD卡",features:["8倍长焦","光学防抖"],priceMin:300,priceMax:600,style:["长焦","防抖"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A4000 IS",brand:"Canon",year:2012,sensor:"16MP CCD",lens:"8x (28-224mm)",screen:"3寸 LCD",media:"SD卡",features:["8倍长焦","光学防抖"],priceMin:300,priceMax:600,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon A4050 IS",brand:"Canon",year:2012,sensor:"14.1MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["光学防抖","智能"],priceMin:200,priceMax:500,style:["防抖","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Canon PowerShot SX系列 (8款) ==========
+{name:"Canon SX120 IS",brand:"Canon",year:2009,sensor:"10MP CCD",lens:"10x (36-360mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","全手动"],priceMin:300,priceMax:600,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon SX130 IS",brand:"Canon",year:2010,sensor:"12MP CCD",lens:"12x (36-432mm)",screen:"3寸 LCD",media:"SD卡",features:["12倍长焦","720p视频"],priceMin:400,priceMax:800,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon SX150 IS",brand:"Canon",year:2011,sensor:"14MP CCD",lens:"12x (36-432mm)",screen:"3寸 LCD",media:"SD卡",features:["12倍长焦","全手动"],priceMin:400,priceMax:800,style:["长焦","手动"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon SX160 IS",brand:"Canon",year:2012,sensor:"16MP CCD",lens:"16x (28-448mm)",screen:"3寸 LCD",media:"SD卡",features:["16倍长焦","28mm广角"],priceMin:500,priceMax:900,style:["长焦","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon SX170 IS",brand:"Canon",year:2013,sensor:"16MP CCD",lens:"16x (28-448mm)",screen:"3寸 LCD",media:"SD卡",features:["16倍长焦","智能"],priceMin:500,priceMax:900,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon SX210 IS",brand:"Canon",year:2010,sensor:"14MP CCD",lens:"14x (28-392mm)",screen:"3寸宽屏",media:"SD卡",features:["14倍长焦","28mm广角"],priceMin:500,priceMax:1000,style:["长焦","旅行"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon SX220 HS",brand:"Canon",year:2011,sensor:"12.1MP CMOS",lens:"14x (28-392mm)",screen:"3寸 LCD",media:"SD卡",features:["14倍长焦","HS","1080p"],priceMin:600,priceMax:1100,style:["长焦","现代"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon SX230 HS",brand:"Canon",year:2011,sensor:"12.1MP CMOS",lens:"14x (28-392mm)",screen:"3寸 LCD",media:"SD卡",features:["14倍长焦","GPS","1080p"],priceMin:700,priceMax:1200,style:["长焦","GPS"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Canon SX240 HS",brand:"Canon",year:2012,sensor:"12.1MP CMOS",lens:"20x (24-480mm)",screen:"3寸 LCD",media:"SD卡",features:["20倍长焦","24mm","1080p"],priceMin:800,priceMax:1400,style:["长焦","旅行"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+
+// ========== Nikon Coolpix L系列 (10款) ==========
+{name:"Nikon L100",brand:"Nikon",year:2009,sensor:"10MP CCD",lens:"15x (28-420mm)",screen:"3寸 LCD",media:"SD卡",features:["15倍长焦","光学防抖"],priceMin:300,priceMax:600,style:["长焦","旅行"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon L110",brand:"Nikon",year:2010,sensor:"12.1MP CCD",lens:"15x (28-420mm)",screen:"3寸 LCD",media:"SD卡",features:["15倍长焦","720p","防抖"],priceMin:200,priceMax:400,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon L120",brand:"Nikon",year:2011,sensor:"14.1MP CCD",lens:"21x (25-525mm)",screen:"3寸 LCD",media:"SD卡",features:["21倍长焦","25mm","防抖"],priceMin:500,priceMax:900,style:["长焦","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon L22",brand:"Nikon",year:2010,sensor:"12MP CCD",lens:"3x (35-105mm)",screen:"3寸 LCD",media:"AA电池+SD卡",features:["AA电池方便","3寸大屏"],priceMin:150,priceMax:300,style:["入门","方便"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon L30",brand:"Nikon",year:2013,sensor:"20.1MP CCD",lens:"5x (26-130mm)",screen:"3寸 LCD",media:"SD卡",features:["20MP","AA电池"],priceMin:100,priceMax:250,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon L31",brand:"Nikon",year:2015,sensor:"16.1MP CCD",lens:"3x (32-96mm)",screen:"2.7寸 LCD",media:"SD卡",features:["简单操作","AA电池"],priceMin:80,priceMax:200,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon L32",brand:"Nikon",year:2016,sensor:"20.1MP CCD",lens:"5x (26-130mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","AA电池"],priceMin:100,priceMax:250,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon L33",brand:"Nikon",year:2017,sensor:"20.1MP CCD",lens:"5x (26-130mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:100,priceMax:250,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Nikon Coolpix S系列 (18款) ==========
+{name:"Nikon S230",brand:"Nikon",year:2009,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"3寸触摸",media:"SD卡",features:["触摸屏","光学防抖"],priceMin:200,priceMax:400,style:["触摸","复古"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S2500",brand:"Nikon",year:2011,sensor:"12MP CCD",lens:"4x (27-108mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","智能人像"],priceMin:150,priceMax:350,style:["超薄","日常"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S3100",brand:"Nikon",year:2011,sensor:"14MP CCD",lens:"5x (26-130mm)",screen:"2.7寸 LCD",media:"SD卡",features:["26mm广角","光学防抖"],priceMin:300,priceMax:500,style:["广角","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S3300",brand:"Nikon",year:2012,sensor:"16.1MP CCD",lens:"6x (26-156mm)",screen:"2.7寸 LCD",media:"SD卡",features:["6倍变焦","26mm","防抖"],priceMin:300,priceMax:600,style:["变焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S3500",brand:"Nikon",year:2013,sensor:"20.1MP CCD",lens:"7x (25-175mm)",screen:"2.7寸 LCD",media:"SD卡",features:["7倍变焦","25mm"],priceMin:350,priceMax:700,style:["变焦","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S4300",brand:"Nikon",year:2011,sensor:"14.1MP CCD",lens:"6x (26-156mm)",screen:"3寸触摸",media:"SD卡",features:["触摸屏","6倍变焦"],priceMin:300,priceMax:600,style:["触摸","变焦"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S4500",brand:"Nikon",year:2012,sensor:"14.1MP CCD",lens:"30x (22.5-675mm)",screen:"3寸 LCD",media:"SD卡",features:["30倍超长焦","防抖"],priceMin:600,priceMax:1000,style:["超长焦","旅行"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S5100",brand:"Nikon",year:2010,sensor:"12.2MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["28mm广角","高速连拍"],priceMin:200,priceMax:450,style:["广角","连拍"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S5200",brand:"Nikon",year:2012,sensor:"16.1MP CCD",lens:"6x (26-156mm)",screen:"2.7寸 LCD",media:"SD卡",features:["6倍变焦","WiFi"],priceMin:300,priceMax:600,style:["WiFi","变焦"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S6000",brand:"Nikon",year:2010,sensor:"14.2MP CCD",lens:"7x (28-196mm)",screen:"2.7寸 LCD",media:"SD卡",features:["7倍变焦","28mm","防抖"],priceMin:300,priceMax:600,style:["变焦","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S6100",brand:"Nikon",year:2011,sensor:"16.1MP CCD",lens:"7x (28-196mm)",screen:"3寸 LCD",media:"SD卡",features:["7倍变焦","触控"],priceMin:350,priceMax:700,style:["变焦","大屏"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S6200",brand:"Nikon",year:2011,sensor:"16.1MP CCD",lens:"10x (25-250mm)",screen:"2.7寸 LCD",media:"SD卡",features:["10倍长焦","25mm"],priceMin:400,priceMax:800,style:["长焦","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon S6300",brand:"Nikon",year:2012,sensor:"16.1MP CMOS",lens:"10x (25-250mm)",screen:"2.7寸 LCD",media:"SD卡",features:["10倍长焦","1080p","防抖"],priceMin:400,priceMax:700,style:["长焦","现代"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon S6400",brand:"Nikon",year:2012,sensor:"16.1MP CMOS",lens:"12x (25-300mm)",screen:"3寸 LCD",media:"SD卡",features:["12倍长焦","触摸"],priceMin:500,priceMax:900,style:["长焦","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon S6500",brand:"Nikon",year:2013,sensor:"16.1MP CMOS",lens:"12x (25-300mm)",screen:"3寸 LCD",media:"SD卡",features:["12倍长焦","WiFi"],priceMin:500,priceMax:900,style:["长焦","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon S6600",brand:"Nikon",year:2013,sensor:"16.1MP CMOS",lens:"12x (25-300mm)",screen:"3寸触摸",media:"SD卡",features:["12倍长焦","翻转屏"],priceMin:600,priceMax:1000,style:["长焦","翻转"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:true,sensorType:"CMOS},
+{name:"Nikon S6700",brand:"Nikon",year:2014,sensor:"16.1MP CMOS",lens:"10x (25-250mm)",screen:"2.7寸 LCD",media:"SD卡",features:["10倍变焦","WiFi"],priceMin:500,priceMax:900,style:["变焦","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon S60",brand:"Nikon",year:2008,sensor:"10MP CCD",lens:"5x (33-165mm)",screen:"3.5寸触摸",media:"SD卡",features:["3.5寸触摸屏","光学防抖"],priceMin:200,priceMax:450,style:["触摸","大屏"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Nikon Coolpix P系列 (8款) ==========
+{name:"Nikon P60",brand:"Nikon",year:2008,sensor:"8MP CCD",lens:"5x (36-180mm)",screen:"2.5寸 LCD",media:"SD卡",features:["全手动","取景器"],priceMin:150,priceMax:400,style:["手动","学习"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon P80",brand:"Nikon",year:2008,sensor:"10MP CCD",lens:"18x (27-486mm)",screen:"2.7寸 LCD",media:"SD卡",features:["18倍超长焦","全手动"],priceMin:300,priceMax:600,style:["超长焦","打鸟"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon P90",brand:"Nikon",year:2009,sensor:"12.1MP CCD",lens:"24x (26-624mm)",screen:"3寸 LCD",media:"SD卡",features:["24倍长焦","全手动","防抖"],priceMin:500,priceMax:900,style:["超长焦","手动"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon P100",brand:"Nikon",year:2010,sensor:"10.3MP CMOS",lens:"26x (26-678mm)",screen:"3寸 LCD",media:"SD卡",features:["26倍长焦","1080p","高速连拍"],priceMin:600,priceMax:1100,style:["超长焦","视频"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon P300",brand:"Nikon",year:2011,sensor:"12.2MP BSI-CMOS",lens:"4.2x (24-100mm)",screen:"2.7寸 LCD",media:"SD卡",features:["F1.8大光圈","24mm","全手动"],priceMin:600,priceMax:1100,style:["大光圈","手动"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon P500",brand:"Nikon",year:2011,sensor:"12.1MP CMOS",lens:"36x (22.5-810mm)",screen:"2.7寸 LCD",media:"SD卡",features:["36倍超长焦","1080p"],priceMin:800,priceMax:1400,style:["超长焦","打鸟"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon P510",brand:"Nikon",year:2012,sensor:"16.1MP CMOS",lens:"42x (24-1008mm)",screen:"3寸 LCD",media:"SD卡",features:["42倍超长焦","24mm","WiFi"],priceMin:900,priceMax:1600,style:["超长焦","旅行"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Nikon P520",brand:"Nikon",year:2013,sensor:"18.1MP CMOS",lens:"42x (24-1000mm)",screen:"3寸 LCD",media:"SD卡",features:["42倍长焦","GPS","1080p"],priceMin:900,priceMax:1500,style:["超长焦","GPS"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+
+// ========== Sony Cyber-shot T系列 (10款) ==========
+{name:"Sony DSC-T70",brand:"Sony",year:2007,sensor:"8.1MP CCD",lens:"3x (38-114mm)",screen:"3寸触摸",media:"Memory Stick",features:["触摸屏","超薄"],priceMin:200,priceMax:450,style:["触摸","超薄"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-T77",brand:"Sony",year:2008,sensor:"10MP CCD",lens:"4x (35-140mm)",screen:"3寸触摸",media:"Memory Stick",features:["超薄15mm","触摸屏"],priceMin:300,priceMax:500,style:["超薄","触摸"],noCN:false,uncommonCard:true,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-T90",brand:"Sony",year:2009,sensor:"12MP CCD",lens:"4x (35-140mm)",screen:"3寸触摸",media:"Memory Stick",features:["超薄触摸","BIONZ"],priceMin:300,priceMax:500,style:["超薄","触摸"],noCN:false,uncommonCard:true,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-T99",brand:"Sony",year:2010,sensor:"14.1MP CCD",lens:"4x (25-100mm)",screen:"3寸触摸",media:"Memory Stick/SD",features:["25mm广角","超薄"],priceMin:300,priceMax:550,style:["广角","超薄"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-T110",brand:"Sony",year:2011,sensor:"16.1MP CCD",lens:"4x (25-100mm)",screen:"3寸触摸",media:"Memory Stick/SD",features:["25mm广角","触摸"],priceMin:300,priceMax:550,style:["触摸","广角"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-TX1",brand:"Sony",year:2009,sensor:"10.2MP CMOS",lens:"4x (25-100mm)",screen:"3寸触摸",media:"Memory Stick/SD",features:["3寸触摸","扫描全景"],priceMin:350,priceMax:650,style:["触摸","全景"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-TX5",brand:"Sony",year:2010,sensor:"10.2MP CMOS",lens:"4x (25-100mm)",screen:"3寸触摸",media:"Memory Stick/SD",features:["防水","触摸","防抖"],priceMin:400,priceMax:750,style:["防水","触摸"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-TX9",brand:"Sony",year:2010,sensor:"12.1MP CMOS",lens:"4x (25-100mm)",screen:"3.5寸触摸",media:"Memory Stick/SD",features:["3.5寸大触摸","扫描全景"],priceMin:400,priceMax:700,style:["触摸","高端"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-TX10",brand:"Sony",year:2011,sensor:"16.2MP CMOS",lens:"4x (25-100mm)",screen:"3寸触摸",media:"Memory Stick/SD",features:["防水5米","触摸","1080p"],priceMin:400,priceMax:700,style:["防水","触摸"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-TX20",brand:"Sony",year:2011,sensor:"16.2MP CMOS",lens:"4x (25-100mm)",screen:"3寸触摸",media:"Memory Stick/SD",features:["防水","防尘","触摸"],priceMin:400,priceMax:700,style:["三防","触摸"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+
+// ========== Sony Cyber-shot W系列 (12款) ==========
+{name:"Sony DSC-W35",brand:"Sony",year:2007,sensor:"7.2MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"Memory Stick",features:["BASIC+","便宜"],priceMin:60,priceMax:180,style:["入门","便宜"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W55",brand:"Sony",year:2007,sensor:"7.2MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"Memory Stick",features:["金属机身","BASIC+"],priceMin:80,priceMax:220,style:["金属","入门"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W80",brand:"Sony",year:2008,sensor:"7.2MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"Memory Stick",features:["光学防抖","BIONZ"],priceMin:100,priceMax:300,style:["防抖","实用"],noCN:false,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W150",brand:"Sony",year:2008,sensor:"8.1MP CCD",lens:"5x (30-150mm)",screen:"2.7寸 LCD",media:"Memory Stick",features:["5倍变焦","光学防抖"],priceMin:150,priceMax:400,style:["变焦","防抖"],noCN:false,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W180",brand:"Sony",year:2009,sensor:"10.1MP CCD",lens:"3x (33-99mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["笑脸快门","人脸检测"],priceMin:150,priceMax:400,style:["实用","笑脸"],noCN:false,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W210",brand:"Sony",year:2010,sensor:"12.1MP CCD",lens:"4x (30-120mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["智能模式","光学防抖"],priceMin:200,priceMax:450,style:["实用","防抖"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W270",brand:"Sony",year:2009,sensor:"12.1MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["25mm广角","光学防抖"],priceMin:200,priceMax:450,style:["广角","防抖"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W290",brand:"Sony",year:2009,sensor:"12MP CCD",lens:"5x (28-140mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["28mm广角","720p视频"],priceMin:250,priceMax:450,style:["广角","实用"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W300",brand:"Sony",year:2008,sensor:"13.6MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"Memory Stick",features:["13.6MP","钛金属机身"],priceMin:200,priceMax:450,style:["高像素","金属"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W310",brand:"Sony",year:2010,sensor:"12.1MP CCD",lens:"4x (28-112mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["28mm广角","智能"],priceMin:150,priceMax:400,style:["广角","实用"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W350",brand:"Sony",year:2010,sensor:"14MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["25mm超广角","超薄"],priceMin:300,priceMax:550,style:["广角","薄型"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W370",brand:"Sony",year:2010,sensor:"14.1MP CCD",lens:"7x (30-210mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["7倍变焦","广角"],priceMin:300,priceMax:600,style:["变焦","实用"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W510",brand:"Sony",year:2011,sensor:"12.1MP CCD",lens:"4x (26-104mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["26mm广角","智能"],priceMin:150,priceMax:400,style:["广角","实用"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W520",brand:"Sony",year:2011,sensor:"14.1MP CCD",lens:"5x (24-120mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["24mm广角","全景"],priceMin:200,priceMax:450,style:["广角","全景"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-W530",brand:"Sony",year:2011,sensor:"14MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["25mm广角","全景扫描"],priceMin:150,priceMax:400,style:["广角","实用"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+
+// ========== Sony Cyber-shot H/S系列 (8款) ==========
+{name:"Sony DSC-S950",brand:"Sony",year:2009,sensor:"12MP CCD",lens:"4x (35-140mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["金属机身","便宜"],priceMin:60,priceMax:200,style:["入门","便宜"],noCN:false,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-S980",brand:"Sony",year:2009,sensor:"12.1MP CCD",lens:"4x (33-132mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["4倍变焦","便宜"],priceMin:60,priceMax:200,style:["入门","便宜"],noCN:false,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-H55",brand:"Sony",year:2010,sensor:"14.1MP CCD",lens:"10x (25-250mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["10倍长焦","25mm","GPS"],priceMin:500,priceMax:900,style:["长焦","GPS"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-H70",brand:"Sony",year:2011,sensor:"16.1MP CCD",lens:"10x (25-250mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["10倍长焦","25mm","防抖"],priceMin:500,priceMax:900,style:["长焦","实用"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-HX5V",brand:"Sony",year:2010,sensor:"10MP CMOS",lens:"10x (25-250mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["10倍长焦","GPS定位"],priceMin:500,priceMax:900,style:["长焦","旅行"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-HX7V",brand:"Sony",year:2011,sensor:"16.2MP CMOS",lens:"10x (25-250mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["10倍长焦","GPS","3D"],priceMin:600,priceMax:1000,style:["长焦","GPS"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-HX9V",brand:"Sony",year:2011,sensor:"16.2MP CMOS",lens:"16x (24-384mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["16倍长焦","GPS","1080p"],priceMin:800,priceMax:1400,style:["长焦","高端"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-HX10V",brand:"Sony",year:2012,sensor:"18.2MP CMOS",lens:"16x (24-384mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["16倍长焦","GPS","WiFi"],priceMin:800,priceMax:1400,style:["长焦","WiFi"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+
+// ========== Sony Cyber-shot J/其他 (5款) ==========
+{name:"Sony DSC-J10",brand:"Sony",year:2011,sensor:"16MP CCD",lens:"4x (35-140mm)",screen:"2.7寸 LCD",media:"Memory Stick/SD",features:["超薄金属","USB充电"],priceMin:100,priceMax:300,style:["超薄","多彩"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+{name:"Sony DSC-QX10",brand:"Sony",year:2013,sensor:"18.2MP CMOS",lens:"10x (25-250mm)",screen:"无(手机连接)",media:"Memory Stick/SD",features:["镜头相机","手机控制","WiFi"],priceMin:400,priceMax:800,style:["创意","手机配件"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-RX100",brand:"Sony",year:2012,sensor:"20.2MP CMOS",lens:"3.6x (28-100mm)",screen:"3寸 LCD",media:"Memory Stick/SD",features:["1英寸传感器","F1.8","全手动"],priceMin:1800,priceMax:3500,style:["专业","大底"],noCN:false,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-HX1",brand:"Sony",year:2009,sensor:"9.1MP CMOS",lens:"20x (28-560mm)",screen:"3寸 LCD",media:"Memory Stick",features:["20倍长焦","全景","1080i"],priceMin:500,priceMax:900,style:["长焦","全景"],noCN:false,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CMOS},
+{name:"Sony DSC-H2",brand:"Sony",year:2006,sensor:"6MP CCD",lens:"12x (36-432mm)",screen:"2.5寸 LCD",media:"Memory Stick",features:["12倍长焦","光学防抖"],priceMin:200,priceMax:500,style:["长焦","经典"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:16,flipScreen:false,sensorType:"CCD},
+
+// ========== Olympus FE系列 (12款) ==========
+{name:"Olympus FE-200",brand:"Olympus",year:2006,sensor:"6MP CCD",lens:"5x (28-140mm)",screen:"2.5寸 LCD",media:"xD卡",features:["28mm广角","轻薄"],priceMin:80,priceMax:200,style:["广角","便宜"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-230",brand:"Olympus",year:2007,sensor:"7.1MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"xD卡",features:["超薄","金属"],priceMin:80,priceMax:200,style:["超薄","金属"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-240",brand:"Olympus",year:2007,sensor:"7.1MP CCD",lens:"5x (35-175mm)",screen:"2.5寸 LCD",media:"xD卡",features:["5倍变焦","光学防抖"],priceMin:100,priceMax:300,style:["变焦","防抖"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-300",brand:"Olympus",year:2007,sensor:"12.1MP CCD",lens:"3x (35-105mm)",screen:"2.5寸 LCD",media:"xD卡",features:["12MP","超薄"],priceMin:150,priceMax:350,style:["高像素","超薄"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-340",brand:"Olympus",year:2008,sensor:"8MP CCD",lens:"5x (36-180mm)",screen:"2.7寸 LCD",media:"xD卡",features:["5倍变焦","面部识别"],priceMin:100,priceMax:300,style:["变焦","实用"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-350",brand:"Olympus",year:2008,sensor:"8MP CCD",lens:"4x (28-112mm)",screen:"2.7寸 LCD",media:"xD卡",features:["28mm广角","光学防抖"],priceMin:150,priceMax:350,style:["广角","防抖"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-4000",brand:"Olympus",year:2009,sensor:"12.1MP CCD",lens:"4x (26-104mm)",screen:"2.7寸 LCD",media:"xD卡",features:["26mm广角","智能"],priceMin:150,priceMax:350,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-4500",brand:"Olympus",year:2009,sensor:"12.1MP CCD",lens:"4x (26-104mm)",screen:"2.7寸 LCD",media:"xD卡",features:["CCD","智能"],priceMin:100,priceMax:300,style:["实用","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-5000",brand:"Olympus",year:2009,sensor:"12.1MP CCD",lens:"5x (24-120mm)",screen:"3寸 LCD",media:"SD卡",features:["24mm广角","大屏"],priceMin:200,priceMax:450,style:["广角","大屏"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-5010",brand:"Olympus",year:2009,sensor:"12.1MP CCD",lens:"5x (24-120mm)",screen:"2.7寸 LCD",media:"SD卡",features:["24mm广角","智能"],priceMin:200,priceMax:450,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-5020",brand:"Olympus",year:2009,sensor:"12MP CCD",lens:"5x (24-120mm)",screen:"2.7寸 LCD",media:"xD卡",features:["24mm超广角","金属机身"],priceMin:500,priceMax:700,style:["广角","性价比"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus FE-5030",brand:"Olympus",year:2010,sensor:"14MP CCD",lens:"5x (24-120mm)",screen:"2.7寸 LCD",media:"SD卡",features:["24mm广角","艺术滤镜"],priceMin:300,priceMax:600,style:["广角","滤镜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Olympus VG/VR/SH系列 (10款) ==========
+{name:"Olympus VG-110",brand:"Olympus",year:2011,sensor:"12MP CCD",lens:"5x (26-130mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能场景"],priceMin:400,priceMax:600,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus VG-120",brand:"Olympus",year:2011,sensor:"14MP CCD",lens:"5x (24-120mm)",screen:"3寸 LCD",media:"SD卡",features:["24mm广角","3寸大屏"],priceMin:200,priceMax:450,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus VG-130",brand:"Olympus",year:2011,sensor:"14MP CCD",lens:"5x (24-120mm)",screen:"2.7寸 LCD",media:"SD卡",features:["24mm广角","智能"],priceMin:200,priceMax:450,style:["广角","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus VG-150",brand:"Olympus",year:2011,sensor:"14MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"SD卡",features:["4倍变焦","便宜"],priceMin:100,priceMax:300,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus VG-160",brand:"Olympus",year:2012,sensor:"14MP CCD",lens:"5x (24-120mm)",screen:"3寸 LCD",media:"SD卡",features:["24mm广角","触摸"],priceMin:200,priceMax:450,style:["广角","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus VR-310",brand:"Olympus",year:2010,sensor:"14MP CCD",lens:"10x (28-280mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","28mm广角"],priceMin:300,priceMax:600,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus VR-320",brand:"Olympus",year:2011,sensor:"14.1MP CCD",lens:"10x (28-280mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","防抖"],priceMin:300,priceMax:600,style:["长焦","防抖"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus VR-340",brand:"Olympus",year:2011,sensor:"14.1MP CCD",lens:"10x (28-280mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","智能"],priceMin:300,priceMax:600,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus SH-21",brand:"Olympus",year:2011,sensor:"16MP CCD",lens:"12.5x (24-300mm)",screen:"3寸触摸",media:"SD卡",features:["12.5倍长焦","触摸屏"],priceMin:400,priceMax:800,style:["长焦","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus SH-50",brand:"Olympus",year:2013,sensor:"16MP CMOS",lens:"24x (25-600mm)",screen:"3寸触摸",media:"SD卡",features:["24倍长焦","触摸","1080p"],priceMin:600,priceMax:1100,style:["超长焦","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+
+// ========== Olympus μ/STYLUS系列 (6款) ==========
+{name:"Olympus μ[mju:] 840",brand:"Olympus",year:2008,sensor:"10MP CCD",lens:"3x (36-108mm)",screen:"2.7寸 LCD",media:"xD卡",features:["防水防尘","金属机身"],priceMin:300,priceMax:500,style:["三防","耐用"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus μ[mju:] 850SW",brand:"Olympus",year:2007,sensor:"7.1MP CCD",lens:"3x (38-114mm)",screen:"2.5寸 LCD",media:"xD卡",features:["防水3米","防摔1.5米"],priceMin:300,priceMax:500,style:["三防","耐用"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus μ[mju:] 1050SW",brand:"Olympus",year:2008,sensor:"10.1MP CCD",lens:"3x (38-114mm)",screen:"2.7寸 LCD",media:"xD卡",features:["防水3米","金属","防抖"],priceMin:350,priceMax:600,style:["三防","金属"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus μ[mju:] 1060",brand:"Olympus",year:2008,sensor:"10.1MP CCD",lens:"3x (36-108mm)",screen:"3寸 LCD",media:"xD卡",features:["3寸大屏","智能"],priceMin:200,priceMax:450,style:["大屏","实用"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus μ[mju:] 1070",brand:"Olympus",year:2009,sensor:"12.1MP CCD",lens:"3x (36-108mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","智能"],priceMin:200,priceMax:450,style:["高像素","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus μ[mju:] 1090",brand:"Olympus",year:2009,sensor:"12.1MP CCD",lens:"3x (36-108mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","艺术滤镜"],priceMin:200,priceMax:450,style:["滤镜","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Olympus XZ/SP系列 (5款) ==========
+{name:"Olympus XZ-1",brand:"Olympus",year:2011,sensor:"10MP CCD",lens:"4x (28-112mm)",screen:"3寸 OLED",media:"SD卡",features:["F1.8大光圈","OLED屏","手动环"],priceMin:800,priceMax:1500,style:["专业","大光圈"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Olympus XZ-2",brand:"Olympus",year:2012,sensor:"12MP CMOS",lens:"4x (28-112mm)",screen:"3寸触摸",media:"SD卡",features:["F1.8","触摸","手动环"],priceMin:700,priceMax:1300,style:["专业","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Olympus SP-560UZ",brand:"Olympus",year:2007,sensor:"8MP CCD",lens:"18x (27-486mm)",screen:"2.5寸 LCD",media:"xD卡",features:["18倍超长焦","防抖"],priceMin:300,priceMax:600,style:["超长焦","手动"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus SP-570UZ",brand:"Olympus",year:2008,sensor:"10.1MP CCD",lens:"20x (26-520mm)",screen:"2.7寸 LCD",media:"xD卡",features:["20倍长焦","手动","防抖"],priceMin:400,priceMax:750,style:["超长焦","手动"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Olympus SP-590UZ",brand:"Olympus",year:2009,sensor:"12.1MP CCD",lens:"26x (26-676mm)",screen:"3寸 LCD",media:"SD卡",features:["26倍长焦","26mm","防抖"],priceMin:500,priceMax:900,style:["超长焦","旅行"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Fujifilm FinePix J/Z系列 (15款) ==========
+{name:"Fujifilm J250",brand:"Fujifilm",year:2009,sensor:"10MP CCD",lens:"5x (28-140mm)",screen:"3寸 LCD",media:"SD卡",features:["28mm广角","CCD防抖"],priceMin:150,priceMax:400,style:["广角","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm J27",brand:"Fujifilm",year:2009,sensor:"12.1MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","智能"],priceMin:80,priceMax:250,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm J28",brand:"Fujifilm",year:2009,sensor:"12.1MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","智能场景"],priceMin:80,priceMax:250,style:["入门","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm J30",brand:"Fujifilm",year:2010,sensor:"12MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["智能场景","便宜"],priceMin:60,priceMax:200,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm J35",brand:"Fujifilm",year:2010,sensor:"14.1MP CCD",lens:"3x (35-105mm)",screen:"3寸 LCD",media:"SD卡",features:["14MP","3寸大屏"],priceMin:100,priceMax:300,style:["大屏","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm J38",brand:"Fujifilm",year:2010,sensor:"12.2MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","超薄"],priceMin:80,priceMax:250,style:["超薄","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm J100",brand:"Fujifilm",year:2008,sensor:"10MP CCD",lens:"5x (35-175mm)",screen:"2.7寸 LCD",media:"xD卡",features:["5倍变焦","面部识别"],priceMin:80,priceMax:250,style:["变焦","实用"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm J150W",brand:"Fujifilm",year:2008,sensor:"10MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"xD卡",features:["28mm广角","防抖"],priceMin:100,priceMax:300,style:["广角","防抖"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm Z30",brand:"Fujifilm",year:2009,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","多彩外壳"],priceMin:100,priceMax:300,style:["超薄","可爱"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm Z33WP",brand:"Fujifilm",year:2009,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["防水3米","超薄"],priceMin:300,priceMax:600,style:["防水","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm Z35",brand:"Fujifilm",year:2009,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","智能"],priceMin:80,priceMax:250,style:["超薄","入门"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm Z70",brand:"Fujifilm",year:2010,sensor:"12.2MP CCD",lens:"5x (36-180mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","超薄"],priceMin:150,priceMax:400,style:["变焦","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm Z80",brand:"Fujifilm",year:2010,sensor:"12MP CCD",lens:"5x (36-180mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:150,priceMax:400,style:["变焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm Z800EXR",brand:"Fujifilm",year:2010,sensor:"12MP EXR",lens:"3x (35-105mm)",screen:"3.5寸触摸",media:"SD卡",features:["3.5寸触摸","EXR传感器"],priceMin:400,priceMax:700,style:["触摸","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm Z900EXR",brand:"Fujifilm",year:2011,sensor:"16MP EXR",lens:"5x (36-180mm)",screen:"3.5寸触摸",media:"SD卡",features:["3.5寸触摸","EXR","1080p"],priceMin:500,priceMax:900,style:["触摸","高端"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Fujifilm FinePix F系列 (15款) ==========
+{name:"Fujifilm F30",brand:"Fujifilm",year:2006,sensor:"6.3MP CCD",lens:"3x (36-108mm)",screen:"2.5寸 LCD",media:"xD卡",features:["超高感光度","自然光模式"],priceMin:500,priceMax:700,style:["高感光","经典"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F31fd",brand:"Fujifilm",year:2006,sensor:"6.3MP CCD",lens:"3x (36-108mm)",screen:"2.5寸 LCD",media:"xD卡",features:["人脸检测先驱","高感光"],priceMin:400,priceMax:600,style:["经典","人脸"],noCN:false,uncommonCard:true,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F40fd",brand:"Fujifilm",year:2007,sensor:"8.3MP CCD",lens:"3x (36-108mm)",screen:"2.5寸 LCD",media:"xD卡/SD卡",features:["人脸检测","智能场景"],priceMin:200,priceMax:500,style:["人脸","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F480",brand:"Fujifilm",year:2008,sensor:"8.2MP CCD",lens:"4x (28-112mm)",screen:"2.7寸 LCD",media:"SD卡",features:["28mm广角","智能"],priceMin:150,priceMax:400,style:["广角","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F50fd",brand:"Fujifilm",year:2007,sensor:"12MP CCD",lens:"3x (36-108mm)",screen:"2.7寸 LCD",media:"xD卡/SD卡",features:["12MP","人脸检测"],priceMin:200,priceMax:500,style:["高像素","人脸"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F60fd",brand:"Fujifilm",year:2008,sensor:"12MP CCD",lens:"3x (35-105mm)",screen:"3寸 LCD",media:"SD卡",features:["人脸检测","智能场景"],priceMin:150,priceMax:400,style:["人脸","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F100fd",brand:"Fujifilm",year:2008,sensor:"12MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"xD卡/SD卡",features:["28mm广角","人脸检测"],priceMin:200,priceMax:500,style:["广角","人脸"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:2,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F200EXR",brand:"Fujifilm",year:2009,sensor:"12MP EXR",lens:"5x (28-140mm)",screen:"3寸 LCD",media:"SD卡",features:["EXR传感器","28mm广角"],priceMin:600,priceMax:900,style:["高画质","广角"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F300EXR",brand:"Fujifilm",year:2010,sensor:"12MP EXR",lens:"15x (24-360mm)",screen:"3寸 LCD",media:"SD卡",features:["15倍长焦","EXR","24mm"],priceMin:500,priceMax:900,style:["长焦","高画质"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F500EXR",brand:"Fujifilm",year:2011,sensor:"16MP EXR",lens:"15x (24-360mm)",screen:"3寸 LCD",media:"SD卡",features:["15倍长焦","1080p","EXR"],priceMin:500,priceMax:900,style:["长焦","现代"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F550EXR",brand:"Fujifilm",year:2011,sensor:"16MP EXR",lens:"15x (24-360mm)",screen:"3寸 LCD",media:"SD卡",features:["15倍长焦","GPS","EXR"],priceMin:600,priceMax:1000,style:["长焦","GPS"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F600EXR",brand:"Fujifilm",year:2011,sensor:"16MP EXR",lens:"15x (24-360mm)",screen:"3寸 LCD",media:"SD卡",features:["15倍长焦","GPS","全手动"],priceMin:600,priceMax:1000,style:["长焦","手动"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F75EXR",brand:"Fujifilm",year:2009,sensor:"10MP EXR",lens:"10x (27-270mm)",screen:"2.7寸 LCD",media:"SD卡",features:["10倍长焦","EXR传感器"],priceMin:400,priceMax:700,style:["长焦","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F77EXR",brand:"Fujifilm",year:2010,sensor:"12MP EXR",lens:"10x (27-270mm)",screen:"2.7寸 LCD",media:"SD卡",features:["10倍长焦","超薄"],priceMin:400,priceMax:700,style:["长焦","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm F80EXR",brand:"Fujifilm",year:2010,sensor:"12MP EXR",lens:"10x (27-270mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","EXR模式"],priceMin:400,priceMax:700,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm AX300",brand:"Fujifilm",year:2011,sensor:"14MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["智能场景","便宜"],priceMin:60,priceMax:200,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm AX350",brand:"Fujifilm",year:2011,sensor:"14.1MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["14MP","智能"],priceMin:60,priceMax:200,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm AV100",brand:"Fujifilm",year:2011,sensor:"12.2MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","便宜"],priceMin:50,priceMax:180,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Fujifilm AV130",brand:"Fujifilm",year:2011,sensor:"12.2MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","智能"],priceMin:60,priceMax:200,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Casio EXILIM Z系列 (15款) ==========
+{name:"Casio EX-Z80",brand:"Casio",year:2008,sensor:"8.1MP CCD",lens:"3x (38-114mm)",screen:"2.6寸 LCD",media:"SD卡",features:["超薄7.9mm","美颜"],priceMin:400,priceMax:700,style:["超薄","视频"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-Z90",brand:"Casio",year:2009,sensor:"12.1MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["12MP","YouTube模式"],priceMin:300,priceMax:600,style:["入门","视频"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-Z280",brand:"Casio",year:2009,sensor:"12.1MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"SD卡",features:["25mm广角","美颜模式"],priceMin:300,priceMax:500,style:["广角","视频"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-Z350",brand:"Casio",year:2010,sensor:"14.1MP CCD",lens:"4x (25-100mm)",screen:"3寸 LCD",media:"SD卡",features:["25mm广角","720p视频"],priceMin:300,priceMax:600,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-Z370",brand:"Casio",year:2011,sensor:"14.1MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"SD卡",features:["4倍变焦","智能"],priceMin:200,priceMax:450,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-Z800",brand:"Casio",year:2011,sensor:"14.1MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","自动快门"],priceMin:200,priceMax:450,style:["超薄","美颜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-Z810",brand:"Casio",year:2012,sensor:"16.1MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"SD卡",features:["16MP","WiFi"],priceMin:250,priceMax:500,style:["WiFi","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-ZS5",brand:"Casio",year:2010,sensor:"12.1MP CCD",lens:"5x (26-130mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:200,priceMax:450,style:["变焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-ZS10",brand:"Casio",year:2011,sensor:"14.1MP CCD",lens:"5x (26-130mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:250,priceMax:500,style:["变焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-ZS15",brand:"Casio",year:2011,sensor:"14.1MP CCD",lens:"8x (24-192mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","24mm"],priceMin:300,priceMax:600,style:["长焦","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-ZS20",brand:"Casio",year:2012,sensor:"16.1MP CCD",lens:"8x (24-192mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","GPS"],priceMin:350,priceMax:700,style:["长焦","GPS"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Casio EX-ZR10",brand:"Casio",year:2010,sensor:"12.1MP CMOS",lens:"7x (28-196mm)",screen:"3寸 LCD",media:"SD卡",features:["高速连拍","7倍变焦"],priceMin:400,priceMax:800,style:["高速","连拍"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Casio EX-ZR20",brand:"Casio",year:2011,sensor:"12.1MP CMOS",lens:"8x (28-224mm)",screen:"3寸 LCD",media:"SD卡",features:["高速连拍","1080p"],priceMin:500,priceMax:900,style:["高速","视频"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Casio EX-ZR300",brand:"Casio",year:2012,sensor:"12.1MP CMOS",lens:"12.5x (24-300mm)",screen:"3寸 LCD",media:"SD卡",features:["12.5倍长焦","高速"],priceMin:600,priceMax:1100,style:["长焦","高速"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Casio EX-H5",brand:"Casio",year:2010,sensor:"12.1MP CCD",lens:"10x (24-240mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","24mm广角"],priceMin:300,priceMax:600,style:["长焦","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Panasonic Lumix DMC-F系列 (15款) ==========
+{name:"Panasonic FS7",brand:"Panasonic",year:2009,sensor:"10.1MP CCD",lens:"4x (33-132mm)",screen:"2.7寸 LCD",media:"SD卡",features:["光学防抖","IA智能模式"],priceMin:150,priceMax:400,style:["实用","金属"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FS10",brand:"Panasonic",year:2009,sensor:"12.1MP CCD",lens:"4x (33-132mm)",screen:"2.5寸 LCD",media:"SD卡",features:["720p视频","智能模式"],priceMin:150,priceMax:400,style:["视频","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FS15",brand:"Panasonic",year:2009,sensor:"12.1MP CCD",lens:"4x (33-132mm)",screen:"2.7寸 LCD",media:"SD卡",features:["智能模式","29mm广角"],priceMin:150,priceMax:400,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FS30",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"4x (33-132mm)",screen:"2.7寸 LCD",media:"SD卡",features:["14MP","智能"],priceMin:200,priceMax:450,style:["高像素","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FS35",brand:"Panasonic",year:2011,sensor:"14.1MP CCD",lens:"4x (33-132mm)",screen:"2.7寸 LCD",media:"SD卡",features:["4倍变焦","智能"],priceMin:150,priceMax:400,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FX40",brand:"Panasonic",year:2009,sensor:"12.1MP CCD",lens:"5x (25-125mm)",screen:"2.5寸 LCD",media:"SD卡",features:["25mm广角","智能"],priceMin:200,priceMax:500,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FX55",brand:"Panasonic",year:2008,sensor:"8.1MP CCD",lens:"3x (25-75mm)",screen:"3寸触摸",media:"SD卡",features:["25mm广角","触摸"],priceMin:200,priceMax:500,style:["触摸","广角"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FX75",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"5x (24-120mm)",screen:"3寸 LCD",media:"SD卡",features:["24mm广角","F2.2光圈"],priceMin:500,priceMax:800,style:["广角","大光圈"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FX70",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"5x (24-120mm)",screen:"2.7寸 LCD",media:"SD卡",features:["24mm广角","智能"],priceMin:200,priceMax:500,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FX700",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"5x (24-120mm)",screen:"3寸触摸",media:"SD卡",features:["24mm","触摸","1080p"],priceMin:400,priceMax:750,style:["触摸","高清"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FP1",brand:"Panasonic",year:2010,sensor:"12.1MP CCD",lens:"4x (35-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","潜望式"],priceMin:150,priceMax:400,style:["超薄","时尚"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FP3",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"4x (35-140mm)",screen:"3寸触摸",media:"SD卡",features:["触摸","超薄"],priceMin:200,priceMax:500,style:["触摸","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FP5",brand:"Panasonic",year:2011,sensor:"14.1MP CCD",lens:"4x (35-140mm)",screen:"3寸触摸",media:"SD卡",features:["触摸","WiFi"],priceMin:200,priceMax:500,style:["触摸","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FP7",brand:"Panasonic",year:2011,sensor:"16.1MP CCD",lens:"4x (35-140mm)",screen:"3.5寸触摸",media:"SD卡",features:["3.5寸大触摸","16MP"],priceMin:250,priceMax:550,style:["大屏","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Panasonic Lumix DMC-LX/GH系列 (8款) ==========
+{name:"Panasonic LX3",brand:"Panasonic",year:2008,sensor:"10.1MP CCD",lens:"2.5x (24-60mm)",screen:"3寸 LCD",media:"SD卡",features:["F2.0大光圈","24mm广角","手动控制"],priceMin:600,priceMax:1000,style:["专业","大光圈"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic LX5",brand:"Panasonic",year:2010,sensor:"10.1MP CCD",lens:"3.8x (24-90mm)",screen:"3寸 LCD",media:"SD卡",features:["F2.0大光圈","24mm广角"],priceMin:600,priceMax:1000,style:["专业","高端"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic LX7",brand:"Panasonic",year:2012,sensor:"10.1MP CMOS",lens:"3.8x (24-90mm)",screen:"3寸 LCD",media:"SD卡",features:["F1.4大光圈","24mm"],priceMin:800,priceMax:1500,style:["专业","超大光圈"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Panasonic GF1",brand:"Panasonic",year:2009,sensor:"12.1MP Live MOS",lens:"可换镜头",screen:"3寸 LCD",media:"SD卡",features:["微型单电","可换镜头"],priceMin:800,priceMax:1500,style:["微单","可换镜头"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Panasonic GF2",brand:"Panasonic",year:2010,sensor:"12.1MP Live MOS",lens:"可换镜头",screen:"3寸触摸",media:"SD卡",features:["微型单电","触摸","1080i"],priceMin:600,priceMax:1200,style:["微单","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Panasonic GF3",brand:"Panasonic",year:2011,sensor:"12.1MP Live MOS",lens:"可换镜头",screen:"3寸触摸",media:"SD卡",features:["最小微单","触摸"],priceMin:500,priceMax:1000,style:["微单","小巧"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Panasonic GH1",brand:"Panasonic",year:2009,sensor:"12.1MP Live MOS",lens:"可换镜头",screen:"3寸翻转",media:"SD卡",features:["1080p视频","可换镜头"],priceMin:800,priceMax:1500,style:["视频","微单"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:true,sensorType:"CMOS},
+{name:"Panasonic GH2",brand:"Panasonic",year:2010,sensor:"16MP Live MOS",lens:"可换镜头",screen:"3寸翻转",media:"SD卡",features:["1080p视频","触摸"],priceMin:1000,priceMax:2000,style:["视频","高端"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:true,sensorType:"CMOS},
+
+// ========== Panasonic DMC-FS/FT/FH系列 (8款) ==========
+{name:"Panasonic FT1",brand:"Panasonic",year:2009,sensor:"12.1MP CCD",lens:"4.6x (28-128mm)",screen:"2.7寸 LCD",media:"SD卡",features:["防水3米","720p"],priceMin:400,priceMax:750,style:["三防","耐用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FT2",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"4.6x (28-128mm)",screen:"2.7寸 LCD",media:"SD卡",features:["防水10米","1080p"],priceMin:500,priceMax:900,style:["三防","高端"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FT3",brand:"Panasonic",year:2011,sensor:"12.1MP CMOS",lens:"4.6x (28-128mm)",screen:"2.7寸 LCD",media:"SD卡",features:["防水12米","GPS","3D"],priceMin:600,priceMax:1100,style:["三防","GPS"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Panasonic FH20",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"8x (28-224mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","28mm广角"],priceMin:200,priceMax:500,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FH22",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"8x (28-224mm)",screen:"3寸触摸",media:"SD卡",features:["8倍长焦","触摸"],priceMin:250,priceMax:550,style:["长焦","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FH25",brand:"Panasonic",year:2010,sensor:"14.1MP CCD",lens:"8x (28-224mm)",screen:"2.7寸 LCD",media:"SD卡",features:["8倍长焦","智能"],priceMin:200,priceMax:500,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FH27",brand:"Panasonic",year:2011,sensor:"16.1MP CCD",lens:"8x (28-224mm)",screen:"3寸触摸",media:"SD卡",features:["8倍长焦","触摸","16MP"],priceMin:250,priceMax:550,style:["长焦","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Panasonic FH5",brand:"Panasonic",year:2011,sensor:"14.1MP CCD",lens:"4x (28-112mm)",screen:"2.7寸 LCD",media:"SD卡",features:["4倍变焦","智能"],priceMin:150,priceMax:400,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Samsung ST/ES/PL系列 (15款) ==========
+{name:"Samsung ST5500",brand:"Samsung",year:2010,sensor:"14.2MP CCD",lens:"7x (31-217mm)",screen:"3.7寸触摸",media:"SD卡",features:["3.7寸大触摸","WiFi"],priceMin:300,priceMax:600,style:["触摸","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST1000",brand:"Samsung",year:2009,sensor:"12.2MP CCD",lens:"5x (35-175mm)",screen:"3.5寸触摸",media:"SD卡",features:["GPS","WiFi","蓝牙"],priceMin:250,priceMax:550,style:["功能多","连接"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST50",brand:"Samsung",year:2009,sensor:"12.2MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","智能"],priceMin:100,priceMax:300,style:["超薄","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST60",brand:"Samsung",year:2010,sensor:"12.2MP CCD",lens:"4x (25-100mm)",screen:"2.7寸 LCD",media:"SD卡",features:["25mm广角","超薄"],priceMin:100,priceMax:300,style:["薄型","广角"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST70",brand:"Samsung",year:2010,sensor:"14.2MP CCD",lens:"5x (25-125mm)",screen:"2.7寸 LCD",media:"SD卡",features:["25mm广角","智能"],priceMin:150,priceMax:400,style:["广角","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST80",brand:"Samsung",year:2010,sensor:"12.2MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["WiFi","触摸"],priceMin:150,priceMax:400,style:["WiFi","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST90",brand:"Samsung",year:2011,sensor:"12.2MP CCD",lens:"5x (25-125mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","超薄"],priceMin:100,priceMax:300,style:["变焦","薄型"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST95",brand:"Samsung",year:2011,sensor:"14.2MP CCD",lens:"5x (25-125mm)",screen:"3寸触摸",media:"SD卡",features:["触摸","WiFi"],priceMin:150,priceMax:400,style:["触摸","WiFi"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ST2000",brand:"Samsung",year:2010,sensor:"14.2MP CCD",lens:"5x (27-135mm)",screen:"3.5寸触摸",media:"SD卡",features:["触摸","WiFi","3D"],priceMin:300,priceMax:600,style:["触摸","3D"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ES70",brand:"Samsung",year:2010,sensor:"12.2MP CCD",lens:"5x (27-135mm)",screen:"2.7寸 LCD",media:"SD卡",features:["27mm广角","智能场景"],priceMin:60,priceMax:200,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ES73",brand:"Samsung",year:2010,sensor:"12.2MP CCD",lens:"5x (27-135mm)",screen:"2.7寸 LCD",media:"SD卡",features:["27mm","防抖"],priceMin:80,priceMax:250,style:["防抖","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung ES80",brand:"Samsung",year:2011,sensor:"12.2MP CCD",lens:"5x (25-125mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:60,priceMax:200,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung PL120",brand:"Samsung",year:2011,sensor:"12.2MP CCD",lens:"5x (27-135mm)",screen:"3寸 LCD",media:"SD卡",features:["双屏","智能"],priceMin:150,priceMax:400,style:["双屏","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung PL150",brand:"Samsung",year:2010,sensor:"12.2MP CCD",lens:"5x (27-135mm)",screen:"3寸 LCD",media:"SD卡",features:["前置屏幕","智能"],priceMin:150,priceMax:400,style:["双屏","自拍"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung PL200",brand:"Samsung",year:2010,sensor:"14.2MP CCD",lens:"7x (31-217mm)",screen:"3寸 LCD",media:"SD卡",features:["7倍长焦","14MP"],priceMin:200,priceMax:500,style:["长焦","高像素"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Samsung NV9",brand:"Samsung",year:2008,sensor:"10.2MP CCD",lens:"5x (35-175mm)",screen:"2.5寸 LCD",media:"SD卡",features:["MP3播放","超薄"],priceMin:100,priceMax:300,style:["多媒体","薄型"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== 宾得 Pentax (12款) ==========
+{name:"Pentax S12",brand:"Pentax",year:2008,sensor:"12MP CCD",lens:"3x (36-107mm)",screen:"2.5寸 LCD",media:"SD卡",features:["超薄金属","面部识别"],priceMin:100,priceMax:300,style:["超薄","金属"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax W80",brand:"Pentax",year:2009,sensor:"12.1MP CCD",lens:"5x (28-140mm)",screen:"2.5寸 LCD",media:"SD卡",features:["防水5米","防摔1.5米"],priceMin:350,priceMax:650,style:["三防","耐用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax W90",brand:"Pentax",year:2010,sensor:"12.1MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["防水6米","LED微距灯"],priceMin:400,priceMax:750,style:["三防","微距"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax W100",brand:"Pentax",year:2016,sensor:"16MP BSI-CMOS",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["防水14米","1080p"],priceMin:500,priceMax:900,style:["三防","高端"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Pentax RS1000",brand:"Pentax",year:2010,sensor:"10MP CCD",lens:"3x (35-105mm)",screen:"3寸 LCD",media:"SD卡",features:["可换面板","简单操作"],priceMin:80,priceMax:250,style:["个性化","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax I-10",brand:"Pentax",year:2010,sensor:"12.1MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["复古造型","28mm广角"],priceMin:200,priceMax:500,style:["复古造型","广角"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax H90",brand:"Pentax",year:2010,sensor:"12.1MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:150,priceMax:400,style:["实用","智能"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax RZ10",brand:"Pentax",year:2010,sensor:"14.1MP CCD",lens:"10x (28-280mm)",screen:"2.7寸 LCD",media:"SD卡",features:["10倍长焦","防抖"],priceMin:300,priceMax:600,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax M50",brand:"Pentax",year:2011,sensor:"12.1MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","智能"],priceMin:150,priceMax:400,style:["实用","智能"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax VS20",brand:"Pentax",year:2012,sensor:"16MP CCD",lens:"21x (25-525mm)",screen:"3寸 LCD",media:"SD卡",features:["21倍长焦","双快门"],priceMin:400,priceMax:800,style:["长焦","双快门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Pentax MX1",brand:"Pentax",year:2013,sensor:"12MP CMOS",lens:"4x (28-112mm)",screen:"3寸 LCD",media:"SD卡",features:["F1.8大光圈","手动环"],priceMin:1000,priceMax:2000,style:["专业","大光圈"],noCN:true,uncommonCard:false,look:"modern",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"Pentax Q",brand:"Pentax",year:2011,sensor:"12.4MP CMOS",lens:"可换镜头",screen:"2.7寸 LCD",media:"SD卡",features:["最小可换镜头","Q卡口"],priceMin:800,priceMax:1500,style:["微型","可换镜头"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+
+// ========== Kodak (8款) ==========
+{name:"Kodak C180",brand:"Kodak",year:2009,sensor:"10.2MP CCD",lens:"3x (35-105mm)",screen:"2.4寸 LCD",media:"SD卡",features:["柯达色彩","简单操作"],priceMin:30,priceMax:100,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Kodak C195",brand:"Kodak",year:2010,sensor:"12.2MP CCD",lens:"3x (35-105mm)",screen:"2.4寸 LCD",media:"SD卡",features:["12MP","智能"],priceMin:50,priceMax:150,style:["入门","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Kodak C1550",brand:"Kodak",year:2011,sensor:"14MP CCD",lens:"3x (35-105mm)",screen:"2.4寸 LCD",media:"SD卡",features:["14MP","智能"],priceMin:50,priceMax:150,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Kodak Z915",brand:"Kodak",year:2009,sensor:"10MP CCD",lens:"10x (35-350mm)",screen:"2.5寸 LCD",media:"SD卡",features:["10倍长焦","全手动"],priceMin:150,priceMax:400,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Kodak Z950",brand:"Kodak",year:2010,sensor:"12MP CCD",lens:"10x (35-350mm)",screen:"3寸 LCD",media:"SD卡",features:["10倍长焦","防抖"],priceMin:200,priceMax:500,style:["长焦","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Kodak Z981",brand:"Kodak",year:2010,sensor:"12MP CCD",lens:"25x (26-650mm)",screen:"3寸 LCD",media:"SD卡",features:["25倍长焦","全手动"],priceMin:400,priceMax:800,style:["超长焦","手动"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Kodak EasyShare C142",brand:"Kodak",year:2009,sensor:"10.2MP CCD",lens:"3x (35-105mm)",screen:"2.4寸 LCD",media:"SD卡",features:["柯达色彩","简单"],priceMin:20,priceMax:80,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Kodak PixPro AZ521",brand:"Kodak",year:2013,sensor:"16MP CCD",lens:"52x (24-1248mm)",screen:"3寸 LCD",media:"SD卡",features:["52倍超长焦","24mm"],priceMin:500,priceMax:1000,style:["超长焦","旅行"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== BenQ (6款) ==========
+{name:"BenQ E1250",brand:"BenQ",year:2009,sensor:"12MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","金属机身"],priceMin:30,priceMax:100,style:["超薄","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"BenQ T1260",brand:"BenQ",year:2010,sensor:"12.1MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["超薄","触摸"],priceMin:50,priceMax:150,style:["超薄","触摸"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"BenQ E1480",brand:"BenQ",year:2011,sensor:"14.1MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["14MP","智能"],priceMin:50,priceMax:150,style:["入门","便宜"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"BenQ S1430",brand:"BenQ",year:2010,sensor:"14MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["14MP","超薄"],priceMin:50,priceMax:150,style:["超薄","入门"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"BenQ GH700",brand:"BenQ",year:2011,sensor:"14.1MP BSI-CMOS",lens:"21x (25-525mm)",screen:"3寸 LCD",media:"SD卡",features:["21倍长焦","1080p"],priceMin:400,priceMax:800,style:["长焦","视频"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CMOS},
+{name:"BenQ S1410",brand:"BenQ",year:2010,sensor:"14.1MP CCD",lens:"3x (35-105mm)",screen:"2.7寸 LCD",media:"SD卡",features:["14MP","智能"],priceMin:50,priceMax:150,style:["入门","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Sigma (4款) ==========
+{name:"Sigma DP1",brand:"Sigma",year:2008,sensor:"14MP Foveon X3",lens:"24mm f/4",screen:"2.5寸 LCD",media:"SD卡",features:["Foveon传感器","定焦","全手动"],priceMin:1500,priceMax:3000,style:["专业","独特"],noCN:true,uncommonCard:false,look:"vintage",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Sigma DP2",brand:"Sigma",year:2009,sensor:"14MP Foveon X3",lens:"30mm f/2.8",screen:"2.5寸 LCD",media:"SD卡",features:["Foveon传感器","定焦"],priceMin:1500,priceMax:3000,style:["专业","定焦"],noCN:true,uncommonCard:false,look:"vintage",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Sigma DP1 Merrill",brand:"Sigma",year:2012,sensor:"46MP Foveon X3",lens:"19mm f/2.8",screen:"3寸 LCD",media:"SD卡",features:["46MP Foveon","定焦"],priceMin:2000,priceMax:4000,style:["专业","高画质"],noCN:true,uncommonCard:false,look:"modern",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Sigma DP2 Merrill",brand:"Sigma",year:2012,sensor:"46MP Foveon X3",lens:"45mm f/2.8",screen:"3寸 LCD",media:"SD卡",features:["46MP Foveon","定焦"],priceMin:2000,priceMax:4000,style:["专业","人像"],noCN:true,uncommonCard:false,look:"modern",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+
+// ========== Ricoh (5款) ==========
+{name:"Ricoh GR Digital",brand:"Ricoh",year:2005,sensor:"8MP CCD",lens:"28mm f/2.4",screen:"2.5寸 LCD",media:"SD卡",features:["28mm定焦","全手动","GR引擎"],priceMin:800,priceMax:1600,style:["街拍","定焦"],noCN:true,uncommonCard:false,look:"vintage",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Ricoh GR Digital II",brand:"Ricoh",year:2007,sensor:"10MP CCD",lens:"28mm f/2.4",screen:"2.7寸 LCD",media:"SD卡",features:["28mm定焦","GR引擎III"],priceMin:800,priceMax:1600,style:["街拍","经典"],noCN:true,uncommonCard:false,look:"vintage",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Ricoh GR Digital III",brand:"Ricoh",year:2009,sensor:"10MP CCD",lens:"28mm f/1.9",screen:"3寸 LCD",media:"SD卡",features:["F1.9大光圈","28mm","GR"],priceMin:1000,priceMax:2000,style:["大光圈","街拍"],noCN:true,uncommonCard:false,look:"vintage",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Ricoh GR Digital IV",brand:"Ricoh",year:2011,sensor:"10MP CCD",lens:"28mm f/1.9",screen:"3寸 LCD",media:"SD卡",features:["F1.9","混合对焦","GR"],priceMin:1200,priceMax:2500,style:["街拍","高端"],noCN:true,uncommonCard:false,look:"modern",isPrime:true,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Ricoh GR",brand:"Ricoh",year:2013,sensor:"16.2MP APS-C CMOS",lens:"28mm f/2.8",screen:"3寸 LCD",media:"SD卡",features:["APS-C传感器","28mm定焦","GR"],priceMin:2500,priceMax:4500,style:["专业","街拍"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CMOS},
+
+// ========== 三洋/松下/其他 (8款) ==========
+{name:"Sanyo VPC-GH4",brand:"Sanyo",year:2010,sensor:"14.1MP CCD",lens:"5x (28-140mm)",screen:"2.7寸 LCD",media:"SD卡",features:["28mm广角","720p"],priceMin:100,priceMax:300,style:["广角","视频"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"720p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Sanyo VPC-CG100",brand:"Sanyo",year:2010,sensor:"10.1MP CCD",lens:"5x (38-190mm)",screen:"2.7寸 LCD",media:"SD卡",features:["5倍变焦","1080p"],priceMin:100,priceMax:300,style:["视频","实用"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon PowerShot G10",brand:"Canon",year:2008,sensor:"14.7MP CCD",lens:"5x (28-140mm)",screen:"3寸 LCD",media:"SD卡",features:["全手动","28mm","光学防抖"],priceMin:1000,priceMax:2000,style:["专业","手动"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Canon PowerShot G11",brand:"Canon",year:2009,sensor:"10MP CCD",lens:"5x (28-140mm)",screen:"2.8寸翻转",media:"SD卡",features:["翻转屏","全手动","RAW"],priceMin:1000,priceMax:2000,style:["专业","翻转"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:true,sensorType:"CCD},
+{name:"Canon PowerShot G12",brand:"Canon",year:2010,sensor:"10MP CCD",lens:"5x (28-140mm)",screen:"3寸翻转",media:"SD卡",features:["翻转屏","全手动","RAW","HDR"],priceMin:1200,priceMax:2500,style:["专业","高端"],noCN:true,uncommonCard:false,look:"vintage",isPrime:false,hasVideo:"",maxCard:32,flipScreen:true,sensorType:"CCD},
+{name:"Nikon P7000",brand:"Nikon",year:2010,sensor:"10.1MP CCD",lens:"7.1x (28-200mm)",screen:"3寸 LCD",media:"SD卡",features:["全手动","RAW","28mm"],priceMin:1000,priceMax:2000,style:["专业","手动"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:false,sensorType:"CCD},
+{name:"Nikon P7100",brand:"Nikon",year:2011,sensor:"10.1MP CCD",lens:"7.1x (28-200mm)",screen:"3寸翻转",media:"SD卡",features:["翻转屏","RAW","全手动"],priceMin:1000,priceMax:2000,style:["专业","翻转"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"",maxCard:32,flipScreen:true,sensorType:"CCD},
+{name:"Nikon P7700",brand:"Nikon",year:2012,sensor:"12.2MP CMOS",lens:"7.1x (28-200mm)",screen:"3寸翻转",media:"SD卡",features:["翻转屏","RAW","1080p"],priceMin:1200,priceMax:2500,style:["专业","高端"],noCN:true,uncommonCard:false,look:"modern",isPrime:false,hasVideo:"1080p",maxCard:32,flipScreen:true,sensorType:"CMOS},
+];
+
+var questions=[
+{title:"你的预算大概是？",subtitle:"以闲鱼二手实际成交价为参考",type:"budget"},
+{title:"你能接受没有中文菜单吗？",single:true,subtitle:"大部分日版/美版相机只有英文或日文",options:[
+{icon:"✅",title:"完全没问题",desc:"英文日文都能看懂",value:"full"},
+{icon:"🤔",title:"勉强可以",desc:"简单英文还行，复杂的不行",value:"partial"},
+{icon:"❌",title:"不行，必须有中文",desc:"没有中文操作不了",value:"no"}
+]},
+{title:"你更偏好哪种画面风格？",single:true,subtitle:"CCD传感器有自己的色彩特点",options:[
+{icon:"🖥️",title:"偏现代清透",desc:"色彩准确，适合直出发朋友圈",value:"modern"},
+{icon:"🎞️",title:"偏复古胶片感",desc:"CCD特有的颗粒感和色彩偏移",value:"vintage"},
+{icon:"🤷",title:"无所谓，都行",desc:"好看就完事了",value:"any"}
+]},
+{title:"你对影像传感器有要求吗？",subtitle:"CCD色彩浓郁但机型老，CMOS选择多且性能更强",single:true,options:[
+{icon:"📷",title:"必须CCD传感器",desc:"就要CCD的色彩质感，老机型也能接受",value:"ccd"},
+{icon:"🔭",title:"可以接受CMOS",desc:"不一定要CCD，选择多很多，色彩也不差",value:"any"},
+{icon:"🤷",title:"无所谓",desc:"看推荐",value:"any"}
+]},
+{title:"你需要翻折屏吗？",subtitle:"翻折屏方便高低角度自拍，但价格普遍偏高且稀有",single:true,options:[
+{icon:"✅",title:"需要，经常自拍或低角度拍",desc:"翻折屏构图方便不用盲猜",value:"yes"},
+{icon:"🤔",title:"有最好，没有也行",desc:"看预算和推荐",value:"maybe"},
+{icon:"❌",title:"不需要，省钱要紧",desc:"省下来的钱买更好的镜头",value:"no"}
+]},
+{title:"能接受冷门存储卡吗？",subtitle:"xD卡、Memory Stick等可能更便宜但不好买",options:[
+{icon:"💾",title:"只用SD卡",desc:"最常见，到处都能买到",value:"sd"},
+{icon:"🔧",title:"能接受Memory Stick",desc:"索尼专用，网上还能买到",value:"ms"},
+{icon:"🎲",title:"xD卡也行",desc:"富士/奥林巴斯老卡，闲鱼能淘到",value:"xd"},
+{icon:"💰",title:"什么都行，哪个便宜买哪个",desc:"只要相机好，卡不是问题",value:"any"}
+]},
+{title:"你对外观有什么要求？",subtitle:"颜值即正义",options:[
+{icon:"✨",title:"必须好看",desc:"颜值第一，性能第二",value:"pretty"},
+{icon:"🪶",title:"要轻薄便携",desc:"能塞口袋最好",value:"thin"},
+{icon:"🔧",title:"要专业感",desc:"有取景器、手动功能更好",value:"pro"},
+{icon:"🤷",title:"无所谓",desc:"能拍照就行",value:"any"}
+]},
+{title:"你会用它拍什么？",subtitle:"不同场景适合不同相机",options:[
+{icon:"🌅",title:"风景旅行",desc:"广角、长焦都想要",value:"travel"},
+{icon:"👤",title:"人像自拍",desc:"要好看，要美颜",value:"portrait"},
+{icon:"🏙️",title:"日常扫街",desc:"随身携带，随手就拍",value:"street"},
+{icon:"🎉",title:"派对记录",desc:"弱光环境也能拍",value:"party"},
+{icon:"🤷",title:"什么都拍",desc:"不限定",value:"any"}
+]},
+{title:"你更想要变焦还是定焦？",subtitle:"变焦更全能，定焦画质好得多",single:true,options:[
+{icon:"🔭",title:"变焦",desc:"一个镜头拍远拍近更方便",value:"zoom"},
+{icon:"🎯",title:"定焦",desc:"画质碾压变焦，但只能固定焦距",value:"prime"},
+{icon:"🤷",title:"无所谓",desc:"看推荐",value:"any"}
+]},
+{title:"你需要视频拍摄功能吗？",subtitle:"很多CCD支持720p或1080p视频",single:true,options:[
+{icon:"🎬",title:"需要，经常拍视频",desc:"至少720p，最好1080p",value:"yes"},
+{icon:"📷",title:"偶尔拍拍也行",desc:"有最好，没有也无所谓",value:"maybe"},
+{icon:"📸",title:"纯拍照，不需要视频",desc:"只要拍照功能好",value:"no"}
+]},
+{title:"你有拍摄演唱会等线下活动的需求吗？",subtitle:"长焦>200mm和高ISO很重要",single:true,options:[
+{icon:"🎵",title:"经常拍演唱会/音乐节",desc:"需要超长焦+高ISO，暗光远距离拍摄",value:"concert"},
+{icon:"📸",title:"偶尔拍拍活动",desc:"有长焦更好，没有也无所谓",value:"maybe"},
+{icon:"🚫",title:"不拍这类场景",desc:"不看重长焦和高感光",value:"no"}
+]},
+{title:"你需要支持多大的存储卡？",subtitle:"128MB≈40-80张（5MP）| 1GB≈300-500张 | 4GB≈1200-2000张",single:true,options:[
+{icon:"💾",title:"128MB就够",desc:"够拍40-80张，练手试机足够",value:"128mb"},
+{icon:"📦",title:"需要1GB",desc:"够拍300-500张，日常记录够用",value:"1gb"},
+{icon:"🗃️",title:"需要4GB",desc:"够拍1200-2000张，旅行也够用",value:"4gb"},
+{icon:"🔥",title:"需要8GB以上",desc:"拍视频或连拍多才需要",value:"8gb"},
+{icon:"🤷",title:"越大越好",desc:"有多少存多少",value:"any"}
+]}
+];
+
+var answers=[];
+var curQ=0;
+var budget=500;
+
+function startQuiz(){
+  curQ=0;answers=[];
+  showPage('qPage');
+  renderQ();
+}
+
+function renderQ(){
+  var q=questions[curQ];
+  document.getElementById('pFill').style.width=(curQ/questions.length*100)+'%';
+  document.getElementById('pText').textContent=(curQ+1)+' / '+questions.length;
+  document.getElementById('qNum').textContent='问题 '+(curQ+1);
+  document.getElementById('qTitle').textContent=q.title;
+  document.getElementById('qHint').textContent=(q.subtitle?q.subtitle+' · ':'')+(q.single?'':'可多选');
+  var opts=document.getElementById('opts');
+  var bw=document.getElementById('budgetWrap');
+  opts.innerHTML='';opts.style.display='flex';bw.style.display='none';
+  document.getElementById('nextBtn').classList.remove('active');
+  
+  if(q.type==='budget'){opts.style.display='none';bw.style.display='block';return}
+  answers[curQ]=[];
+  
+  q.options.forEach(function(o,i){
+    var d=document.createElement('div');
+    d.className='opt';
+    d.innerHTML='<div class="icon">'+o.icon+'</div><div class="info"><div class="title">'+o.title+'</div><div class="desc">'+o.desc+'</div></div><div class="check">✓</div>';
+    d.onclick=function(){
+      if(q.single){
+        document.querySelectorAll('.opt').forEach(function(x){x.classList.remove('selected')});
+        d.classList.add('selected');
+        answers[curQ]=[o.value];
+      }else{
+        d.classList.toggle('selected');
+        if(!answers[curQ])answers[curQ]=[];
+        var idx=answers[curQ].indexOf(o.value);
+        if(idx>-1)answers[curQ].splice(idx,1);else answers[curQ].push(o.value);
+      }
+      document.getElementById('nextBtn').classList.add('active');
+    };
+    opts.appendChild(d);
+  });
+}
+
+function updateBudget(){
+  budget=parseInt(document.getElementById('bSlider').value);
+  document.getElementById('bNum').textContent='¥'+budget;
+  answers[curQ]=budget;
+  document.getElementById('nextBtn').classList.add('active');
+}
+
+function nextQ(){
+  if(questions[curQ].type==='budget')answers[curQ]=budget;
+  curQ++;
+  if(curQ>=questions.length){showPage('paywall');return}
+  renderQ();
+}
+
+// OCR Screenshot Verification
+function handleScreenshotUpload(file){
+  if(!file)return;
+  
+  var uploadArea=document.getElementById('uploadArea');
+  var ocrStatus=document.getElementById('ocrStatus');
+  var ocrResult=document.getElementById('ocrResult');
+  
+  // Show preview
+  var preview=URL.createObjectURL(file);
+  uploadArea.innerHTML='<img class="upload-preview" src="'+preview+'"><p style="margin-top:8px;font-size:0.85rem;color:#666">已选择截图，正在识别...</p>';
+  
+  // Show OCR status
+  ocrStatus.style.display='block';
+  ocrResult.style.display='none';
+  document.getElementById('ocrText').textContent='正在验证...';
+  
+  // Use Tesseract.js - English only for speed
+  Tesseract.recognize(file,'eng',{
+    logger:function(m){
+      if(m.status==='recognizing text'){
+        var pct=Math.round(m.progress*100);
+        document.getElementById('ocrText').textContent='验证中...'+pct+'%';
+      }
+    }
+  }).then(function(result){
+    var text=result.data.text;
+    console.log('OCR result:',text);
+    
+    // Check for payment amount patterns
+    var patterns=['-3.00','3.00','¥3.00','￥3.00','-3.0','3.0元','付了3','支付3'];
+    var found=false;
+    for(var i=0;i<patterns.length;i++){
+      if(text.indexOf(patterns[i])>=0){found=true;break}
+    }
+    
+    ocrStatus.style.display='none';
+    ocrResult.style.display='block';
+    
+    if(found){
+      ocrResult.innerHTML='<div class="success-msg">✅ 验证通过！识别到金额：¥3.00</div><p style="margin-top:8px;font-size:0.85rem;color:#666">正在加载你的专属推荐...</p>';
+      setTimeout(function(){showResults()},1500);
+    }else{
+      ocrResult.innerHTML='<div class="fail-msg">❌ 验证失败</div><p style="margin-top:6px;font-size:0.82rem;color:#999">请确保截图包含支付金额 -3.00</p>';
+      // Reset upload area with proper event binding
+      uploadArea.innerHTML='<div class="upload-placeholder" id="uploadPlaceholder"><span class="upload-icon">📷</span><span class="upload-text">重新上传截图</span><span class="upload-hint">需包含 -3.00 金额</span></div>';
+      document.getElementById('uploadPlaceholder').onclick=function(){
+        var input=document.createElement('input');
+        input.type='file';
+        input.accept='image/*';
+        input.onchange=function(e){handleScreenshotUpload(e.target.files[0])};
+        input.click();
+      };
+    }
+  }).catch(function(err){
+    ocrStatus.style.display='none';
+    ocrResult.innerHTML='<div class="fail-msg">❌ 识别失败，请重试</div>';
+    console.error('OCR error:',err);
+  });
+}
+
+// Pre-load Tesseract worker for speed
+var tesseractReady=false;
+Tesseract.createWorker('eng',1,{
+  logger:function(m){if(m.status==='loaded tesseract core'){tesseractReady=true}}
+}).then(function(worker){window._tesseractWorker=worker});
+
+// Bind initial upload event
+document.getElementById('uploadPlaceholder').onclick=function(){
+  var input=document.createElement('input');
+  input.type='file';
+  input.accept='image/*';
+  input.onchange=function(e){handleScreenshotUpload(e.target.files[0])};
+  input.click();
+};
+
+function checkInviteCode(){
+  var code=document.getElementById('inviteCode').value.trim();
+  var msg=document.getElementById('inviteMsg');
+  var today=new Date();
+  var yyyy=today.getFullYear();
+  var mm=String(today.getMonth()+1).padStart(2,'0');
+  var dd=String(today.getDate()).padStart(2,'0');
+  var todayCode=yyyy+mm+dd;
+  
+  if(code===todayCode){
+    msg.style.display='block';
+    msg.style.color='#27ae60';
+    msg.textContent='✅ 邀请码有效！正在加载结果...';
+    setTimeout(function(){showResults()},1000);
+  }else if(code.length<8){
+    msg.style.display='block';
+    msg.style.color='#e74c3c';
+    msg.textContent='❌ 请输入8位邀请码';
+  }else{
+    msg.style.display='block';
+    msg.style.color='#e74c3c';
+    msg.textContent='❌ 邀请码无效，请检查后重试';
+  }
+}
+
+function showResults(){
+  document.getElementById('pFill').style.width='100%';
+  var userBudget=answers[0]||500;
+  var noCN=answers[1]||'full';
+  var look=answers[2]||'any';
+  var card=answers[3]||'any';
+  var style=answers[4]||'any';
+  var scene=answers[5]||'any';
+  var sensorPref=answers[6]||'any';
+  var flipScreen=answers[7]||'any';
+  var lensType=answers[8]||'any';
+  var videoNeed=answers[9]||'maybe';
+  var concertNeed=answers[10]||'no';
+  var maxCard=answers[11]||'any';
+  
+  var scored=cams.map(function(c){
+    var s=0;
+    // Budget
+    if(c.priceMin<=userBudget&&c.priceMax>=userBudget*0.5)s+=4;
+    else if(c.priceMin<=userBudget*1.3)s+=2;
+    else if(c.priceMax<=userBudget*0.3)s+=1; // cheaper is good
+    // No Chinese
+    if(noCN==='no'&&c.noCN===false)s-=5;
+    if(noCN==='full'&&c.noCN===true)s+=1;
+    // Look preference
+    if(look==='modern'&&c.look==='modern')s+=3;
+    if(look==='vintage'&&c.look==='vintage')s+=3;
+    // Card
+    if(card==='sd'&&c.uncommonCard===false)s+=2;
+    if(card==='any')s+=1;
+    if(card==='ms'&&c.media.indexOf('Memory')>=0)s+=2;
+    if(card==='xd'&&c.media.indexOf('xD')>=0)s+=2;
+    // Style
+    if(style==='pretty'&&c.style.some(function(x){return x==='超薄'||x==='金属'||x==='多彩'}))s+=3;
+    if(style==='thin'&&c.style.some(function(x){return x==='超薄'||x==='薄型'}))s+=3;
+    if(style==='pro'&&(c.style.indexOf('专业')>=0||c.style.indexOf('手动')>=0||c.style.indexOf('学习')>=0))s+=3;
+    // Scene
+    if(scene==='travel'&&c.style.some(function(x){return x==='旅行'||x==='长焦'||x==='广角'}))s+=2;
+    if(scene==='portrait'&&c.style.some(function(x){return x==='人像'||x==='美颜'||x==='触摸'}))s+=2;
+    if(scene==='street'&&c.style.some(function(x){return x==='日常'||x==='超薄'||x==='薄型'}))s+=2;
+    if(scene==='party'&&c.features.some(function(x){return x.indexOf('美颜')>=0||x.indexOf('高感光')>=0||x.indexOf('大光圈')>=0}))s+=2;
+    // Concert/live event need - bonus for long focal length and high ISO
+    if(concertNeed==='concert'){
+      // Check if lens has long focal length (over 200mm equivalent)
+      var focalMatch=c.lens.match(/(\d+)x/);
+      if(focalMatch){
+        var zoom=parseInt(focalMatch[1]);
+        if(zoom>=10)s+=3; // 10x zoom usually covers 200mm+
+      }
+      // Check for high ISO capability
+      if(c.features.some(function(f){return f.indexOf('高感光')>=0||f.indexOf('HS')>=0||f.indexOf('BSI')>=0}))s+=3;
+      // Bonus for long zoom cameras
+      if(c.style.indexOf('长焦')>=0)s+=2;
+    }else if(concertNeed==='maybe'){
+      if(c.style.indexOf('长焦')>=0)s+=1;
+    }
+    // Sensor type preference - filter out CMOS if CCD required
+    if(sensorPref==='ccd'&&c.sensorType==='CMOS')return{cam:c,score:-999};
+    if(sensorPref==='ccd'&&c.sensorType==='CCD')s+=3;
+    // Flip screen - filter
+    if(flipScreen==='yes'&&!c.flipScreen)return{cam:c,score:-999};
+    if(flipScreen==='no'&&c.flipScreen)return{cam:c,score:-999};
+    // Lens type - filter
+    if(lensType==='prime'&&!c.isPrime)return{cam:c,score:-999};
+    if(lensType==='zoom'&&c.isPrime)return{cam:c,score:-999};
+    // Video - filter
+    if(videoNeed==='yes'&&!c.hasVideo)return{cam:c,score:-999};
+    // Max card - filter
+    if(maxCard==='128mb'&&c.maxCard<0.5)return{cam:c,score:-999};
+    if(maxCard==='1gb'&&c.maxCard<1)return{cam:c,score:-999};
+    if(maxCard==='4gb'&&c.maxCard<4)return{cam:c,score:-999};
+    if(maxCard==='8gb'&&c.maxCard<8)return{cam:c,score:-999};
+    // Add small random factor to diversify results
+    s+=Math.random()*1.5;
+    return{cam:c,score:s};
+  });
+  
+  scored.sort(function(a,b){return b.score-a.score});
+  
+  // Ensure brand diversity: no more than 2 from same brand in top 5
+  var top10=[];
+  var brandCount={};
+  for(var i=0;i<scored.length&&top10.length<10;i++){
+    var b=scored[i].cam.brand;
+    if(!brandCount[b])brandCount[b]=0;
+    if(brandCount[b]<2){top10.push(scored[i]);brandCount[b]++}
+  }
+  
+  var cards=document.getElementById('camCards');
+  cards.innerHTML='';
+  cards.style.gridTemplateColumns='repeat(auto-fill,minmax(320px,1fr))';
+  var ranks=['🏆 TOP 1','🥈 TOP 2','🥉 TOP 3','4️⃣ TOP 4','5️⃣ TOP 5','6️⃣ TOP 6','7️⃣ TOP 7','8️⃣ TOP 8','9️⃣ TOP 9','🔟 TOP 10'];
+  
+  top10.forEach(function(r,i){
+    var c=r.cam;
+    var d=document.createElement('div');
+    d.className='cam-card';
+    d.style.animationDelay=(i*0.12)+'s';
+    var specs=[c.sensor,c.lens,c.screen,c.media].map(function(s){return'<span class="spec">'+s+'</span>'}).join('');
+    var feats=c.features.slice(0,3).map(function(f){return'<span class="spec">'+f+'</span>'}).join('');
+    var reason=getReason(c,scene,look,style,card);
+    d.innerHTML='<div class="rank">'+ranks[i]+'</div><h3>'+c.name+'</h3><div class="brand-line">'+c.brand+' · '+c.year+'年</div><div class="specs">'+specs+feats+'</div><div class="price">¥'+c.priceMin+' - ¥'+c.priceMax+'</div><div class="price-note">闲鱼二手参考价</div><div class="reason">'+reason+'</div>';
+    cards.appendChild(d);
+  });
+  
+  showPage('results');
+}
+
+function getReason(c,scene,look,style,card){
+  // Brand-specific personality
+  var brandNote={
+    'Canon':'佳能色彩直出偏暖，人像肤色讨喜',
+    'Nikon':'尼康锐度高，风景细节丰富',
+    'Sony':'索尼色彩偏冷白，自带日系清冷感',
+    'Olympus':'奥林巴斯氛围感强，日系复古风首选',
+    'Fujifilm':'富士胶片模拟无敌，原图直出就有胶片味',
+    'Panasonic':'松下徕卡认证镜头，焦外柔美',
+    'Casio':'卡西欧色彩浓郁，CCD里的氛围感担当',
+    'Samsung':'三星功能堆料足，性价比被低估',
+    'Pentax':'宾得色彩独特，小众宝藏品牌',
+    'Kodak':'柯达色彩温暖，胶片感最强的CCD',
+    'Ricoh':'理光GR街拍神器，28mm定焦纯粹',
+    'Sigma':'适马Foveon传感器，三层感光独一份',
+    'BenQ':'明基冷门但便宜，练手不心疼'
+  };
+  var bs=brandNote[c.brand]||'';
+  
+  // Unique feature highlights (pick the most distinctive one)
+  var feats=[];
+  if(c.features.some(function(f){return f.indexOf('F1.8')>=0||f.indexOf('F2.0')>=0||f.indexOf('F1.9')>=0||f.indexOf('F1.4')>=0}))
+    feats.push('大光圈虚化碾压同价位卡片机');
+  if(c.features.some(function(f){return f.indexOf('Foveon')>=0}))
+    feats.push('三层CCD传感器，色彩层次感吊打普通CCD');
+  if(c.features.some(function(f){return f.indexOf('OLED')>=0}))
+    feats.push('OLED屏幕取景，回看照片色彩准到离谱');
+  if(c.features.some(function(f){return f.indexOf('3.5寸')>=0}))
+    feats.push('3.5寸大屏取景，构图比小屏舒服太多');
+  if(c.features.some(function(f){return f.indexOf('24mm')>=0||f.indexOf('25mm')>=0}))
+    feats.push('24mm超广角，比大多数卡片机拍得更广');
+  if(c.features.some(function(f){return f.indexOf('翻转')>=0}))
+    feats.push('翻转屏自拍构图不用盲猜');
+  if(c.features.some(function(f){return f.indexOf('30倍')>=0||f.indexOf('36倍')>=0||f.indexOf('42倍')>=0||f.indexOf('52倍')>=0}))
+    feats.push('超长焦打鸟拍月亮，卡片机里的望远镜');
+  if(c.features.some(function(f){return f.indexOf('GPS')>=0}))
+    feats.push('自带GPS，照片自动记录拍摄地点');
+  if(c.features.some(function(f){return f.indexOf('WiFi')>=0}))
+    feats.push('WiFi传图，拍完直接发朋友圈不用等');
+  if(c.features.some(function(f){return f.indexOf('扫描全景')>=0}))
+    feats.push('全景扫描模式，拍大场景一键搞定');
+  if(c.features.some(function(f){return f.indexOf('高速连拍')>=0}))
+    feats.push('高速连拍抓拍瞬间，运动场景不怕糊');
+  if(c.features.some(function(f){return f.indexOf('全手动')>=0}))
+    feats.push('全手动控制，学摄影参数调着玩');
+  if(c.features.some(function(f){return f.indexOf('RAW')>=0}))
+   feats.push('支持RAW格式，后期空间拉满');
+  if(c.style.indexOf('三防')>=0||c.features.some(function(f){return f.indexOf('防水')>=0}))
+    feats.push('防水防摔，游泳冲浪带着拍');
+  if(c.features.some(function(f){return f.indexOf('人脸')>=0||f.indexOf('面部')>=0}))
+    feats.push('人脸检测对焦，拍人自动追焦不跑偏');
+  if(c.features.some(function(f){return f.indexOf('自然光')>=0}))
+    feats.push('自然光模式不闪灯，拍出真实光影氛围');
+  if(c.style.indexOf('超薄')>=0)
+    feats.push('超薄金属机身，比手机还轻便');
+  if(c.style.indexOf('金属')>=0)
+    feats.push('全金属机身质感好，拿在手里有分量');
+  if(c.style.indexOf('触摸')>=0)
+    feats.push('触摸屏点哪对哪，操作逻辑像手机');
+  if(c.features.some(function(f){return f.indexOf('AA电池')>=0}))
+    feats.push('用5号电池，没电了便利店就能买');
+  if(c.style.indexOf('复古造型')>=0)
+    feats.push('复古老式造型，拿出去辨识度拉满');
+  if(c.features.some(function(f){return f.indexOf('潜望式')>=0}))
+    feats.push('潜望式镜头不凸出，放口袋不刮花');
+  if(c.features.some(function(f){return f.indexOf('YouTube')>=0}))
+    feats.push('YouTube模式直传视频，Vlog利器');
+  if(c.features.some(function(f){return f.indexOf('MP3')>=0}))
+    feats.push('能听歌能拍照，出门只带一个设备');
+  
+  // Price context
+  var priceNote='';
+  if(c.priceMin<=100)priceNote='百元出头，丢了也不心疼';
+  else if(c.priceMin<=300)priceNote='三四百块，比一杯奶茶贵不了多少';
+  else if(c.priceMin<=600)priceNote='五六百块，CCD入门甜点价位';
+  else if(c.priceMin<=1000)priceNote='千元档位，画质对得起价格';
+  else priceNote='两千以上，CCD里的旗舰水准';
+  
+  // Scene fit
+  var sceneNote='';
+  if(scene==='travel')sceneNote='旅行挂脖子上拍一天不累';
+  else if(scene==='portrait')sceneNote='拍人像肤色好看，直出不用修';
+  else if(scene==='street')sceneNote='扫街随手拍，小巧不引人注意';
+  else if(scene==='party')sceneNote='弱光环境也能出片，聚会不怕暗';
+  else sceneNote='日常记录生活，随手拍都好看';
+  
+  // Build reason: combine brand + top feature + price/scene
+  var parts=[];
+  if(bs)parts.push(bs);
+  if(feats.length>0)parts.push(feats[0]);
+  if(feats.length>1&&parts.length<3)parts.push(feats[1]);
+  if(priceNote)parts.push(priceNote);
+  if(sceneNote&&parts.length<3)parts.push(sceneNote);
+  
+  // Fallback
+  if(parts.length===0)parts.push('综合表现均衡，是不错的入坑选择');
+  
+  return parts.slice(0,4).join('，')+'。';
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
