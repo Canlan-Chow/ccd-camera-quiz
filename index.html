@@ -716,11 +716,17 @@ function handleScreenshotUpload(file){
     var text=result.data.text;
     console.log('OCR result:',text);
     
-    // Check for payment amount patterns
-    var patterns=['-3.00','3.00','¥3.00','￥3.00','-3.0','3.0元','付了3','支付3'];
+    // Check for payment amount patterns - more flexible matching
+    var patterns=['-3.00','3.00','¥3.00','￥3.00','-3.0','3.0元','付了3','支付3','3.00元','-3'];
     var found=false;
     for(var i=0;i<patterns.length;i++){
       if(text.indexOf(patterns[i])>=0){found=true;break}
+    }
+    
+    // Also check for amount patterns with regex
+    if(!found){
+      var amountRegex=/[¥￥]?\s*3\s*\.\s*0\s*0/g;
+      if(amountRegex.test(text)){found=true}
     }
     
     ocrStatus.style.display='none';
@@ -747,12 +753,6 @@ function handleScreenshotUpload(file){
     console.error('OCR error:',err);
   });
 }
-
-// Pre-load Tesseract worker for speed
-var tesseractReady=false;
-Tesseract.createWorker('eng',1,{
-  logger:function(m){if(m.status==='loaded tesseract core'){tesseractReady=true}}
-}).then(function(worker){window._tesseractWorker=worker});
 
 // Bind initial upload event
 document.getElementById('uploadPlaceholder').onclick=function(){
