@@ -188,7 +188,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;heigh
     <input type="file" id="screenshotInput" accept="image/*" style="display:none">
     <div class="upload-placeholder" id="uploadPlaceholder">
       <span class="upload-icon">📷</span>
-      <span class="upload-text">点击上传支付截图</span>
+      <span class="upload-text">点击上传支付截图</span><span class="upload-hint">支持支付宝/微信付款成功截图</span>
     </div>
   </div>
   <div id="ocrStatus" style="display:none;margin-top:12px">
@@ -704,8 +704,8 @@ function handleScreenshotUpload(file){
   ocrResult.style.display='none';
   document.getElementById('ocrText').textContent='正在验证...';
   
-  // Use Tesseract.js - English only for speed and reliability
-  Tesseract.recognize(file,'eng',{
+  // Use Tesseract.js - Chinese + English for better recognition
+  Tesseract.recognize(file,'chi_sim+eng',{
     logger:function(m){
       if(m.status==='recognizing text'){
         var pct=Math.round(m.progress*100);
@@ -717,29 +717,50 @@ function handleScreenshotUpload(file){
     console.log('OCR result:',text);
     console.log('OCR confidence:',result.data.confidence);
     
-    // Check for payment amount patterns - more flexible matching
-    var patterns=['-3.00','3.00','¥3.00','￥3.00','-3'];
-    var found=false;
-    for(var i=0;i<patterns.length;i++){
-      if(text.indexOf(patterns[i])>=0){found=true;break}
+    // Normalize text - remove spaces between digits/symbols for matching
+    var norm=text.replace(/\s+/g,'');
+    
+    // Multi-layer verification: amount OR payment success indicators
+    var amountFound=false;
+    var successFound=false;
+    var merchantFound=false;
+    
+    // Layer 1: Amount patterns (flexible)
+    var amountPatterns=[/-3\.00/,/3\.00/,/¥3/,/￥3/,/-3[^.\d]/,/\b3元/];
+    for(var i=0;i<amountPatterns.length;i++){
+      if(amountPatterns[i].test(norm)||amountPatterns[i].test(text)){amountFound=true;break}
     }
     
-    // Also check for amount patterns with regex
-    if(!found){
-      var amountRegex=/[¥￥]?\s*3\s*\.\s*0\s*0/g;
-      if(amountRegex.test(text)){found=true}
+    // Layer 2: Payment success keywords (支付宝/微信 success indicators)
+    var successPatterns=[/支付成功/,/付款成功/,/交易成功/,/支付完成/,/付款完成/,/转账成功/,/已支付/,/已付款/];
+    for(var i=0;i<successPatterns.length;i++){
+      if(successPatterns[i].test(text)){successFound=true;break}
     }
+    
+    // Layer 3: Merchant/remark match
+    var merchantPatterns=[/autofocus/,/CCD/,/相机/,/咨询费/];
+    for(var i=0;i<merchantPatterns.length;i++){
+      if(merchantPatterns[i].test(text)){merchantFound=true;break}
+    }
+    
+    // Pass if: amount match OR (success keyword AND merchant match)
+    var passed=amountFound||(successFound&&merchantFound);
     
     ocrStatus.style.display='none';
     ocrResult.style.display='block';
     
-    if(found){
-      ocrResult.innerHTML='<div class="success-msg">✅ 验证通过！识别到金额：¥3.00</div><p style="margin-top:8px;font-size:0.85rem;color:#666">正在加载你的专属推荐...</p>';
+    if(passed){
+      var reason=amountFound?'识别到付款金额':('识别到支付成功 + 商家备注');
+      ocrResult.innerHTML='<div class="success-msg">✅ 验证通过！'+reason+'</div><p style="margin-top:8px;font-size:0.85rem;color:#666">正在加载你的专属推荐...</p>';
       setTimeout(function(){showResults()},1500);
     }else{
-      ocrResult.innerHTML='<div class="fail-msg">❌ 验证失败</div><p style="margin-top:6px;font-size:0.82rem;color:#999">请确保截图包含 -3.00</p><p style="margin-top:4px;font-size:0.75rem;color:#bbb">识别到：'+text.substring(0,200)+'</p>';
+      // Show what was recognized for debugging
+      var hint='请上传支付宝/微信支付成功截图';
+      if(!successFound)hint='未检测到支付成功标识';
+      else if(!merchantFound)hint='已检测到支付成功，请确保备注包含 autofocus';
+      ocrResult.innerHTML='<div class="fail-msg">❌ 验证失败</div><p style="margin-top:6px;font-size:0.82rem;color:#999">'+hint+'</p><p style="margin-top:4px;font-size:0.75rem;color:#bbb">识别到：'+text.substring(0,300)+'</p>';
       // Reset upload area with proper event binding
-      uploadArea.innerHTML='<div class="upload-placeholder" id="uploadPlaceholder"><span class="upload-icon">📷</span><span class="upload-text">重新上传截图</span><span class="upload-hint">需包含 -3.00 金额</span></div>';
+      uploadArea.innerHTML='<div class="upload-placeholder" id="uploadPlaceholder"><span class="upload-icon">📷</span><span class="upload-text">重新上传截图</span><span class="upload-hint">需包含付款成功截图</span></div>';
       document.getElementById('uploadPlaceholder').onclick=function(){
         var input=document.createElement('input');
         input.type='file';
