@@ -704,8 +704,8 @@ function handleScreenshotUpload(file){
   ocrResult.style.display='none';
   document.getElementById('ocrText').textContent='正在验证...';
   
-  // Use Tesseract.js - English + Chinese for better recognition
-  Tesseract.recognize(file,'eng+chi_sim',{
+  // Use Tesseract.js - English only for speed and reliability
+  Tesseract.recognize(file,'eng',{
     logger:function(m){
       if(m.status==='recognizing text'){
         var pct=Math.round(m.progress*100);
@@ -715,6 +715,7 @@ function handleScreenshotUpload(file){
   }).then(function(result){
     var text=result.data.text;
     console.log('OCR result:',text);
+    console.log('OCR confidence:',result.data.confidence);
     
     // Check for payment amount patterns - more flexible matching
     var patterns=['-3.00','3.00','¥3.00','￥3.00','-3'];
@@ -736,7 +737,7 @@ function handleScreenshotUpload(file){
       ocrResult.innerHTML='<div class="success-msg">✅ 验证通过！识别到金额：¥3.00</div><p style="margin-top:8px;font-size:0.85rem;color:#666">正在加载你的专属推荐...</p>';
       setTimeout(function(){showResults()},1500);
     }else{
-      ocrResult.innerHTML='<div class="fail-msg">❌ 验证失败</div><p style="margin-top:6px;font-size:0.82rem;color:#999">请确保截图包含 -3.00</p>';
+      ocrResult.innerHTML='<div class="fail-msg">❌ 验证失败</div><p style="margin-top:6px;font-size:0.82rem;color:#999">请确保截图包含 -3.00</p><p style="margin-top:4px;font-size:0.75rem;color:#bbb">识别到：'+text.substring(0,200)+'</p>';
       // Reset upload area with proper event binding
       uploadArea.innerHTML='<div class="upload-placeholder" id="uploadPlaceholder"><span class="upload-icon">📷</span><span class="upload-text">重新上传截图</span><span class="upload-hint">需包含 -3.00 金额</span></div>';
       document.getElementById('uploadPlaceholder').onclick=function(){
