@@ -704,8 +704,8 @@ function handleScreenshotUpload(file){
   ocrResult.style.display='none';
   document.getElementById('ocrText').textContent='正在验证...';
   
-  // Use Tesseract.js - English only for speed
-  Tesseract.recognize(file,'eng',{
+  // Use Tesseract.js - English + Chinese for better recognition
+  Tesseract.recognize(file,'eng+chi_sim',{
     logger:function(m){
       if(m.status==='recognizing text'){
         var pct=Math.round(m.progress*100);
