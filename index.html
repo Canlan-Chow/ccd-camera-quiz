@@ -717,7 +717,7 @@ function handleScreenshotUpload(file){
     console.log('OCR result:',text);
     
     // Check for payment amount patterns - more flexible matching
-    var patterns=['-3.00','3.00','¥3.00','￥3.00','-3.0','3.0元','付了3','支付3','3.00元','-3'];
+    var patterns=['-3.00','3.00','¥3.00','￥3.00','-3'];
     var found=false;
     for(var i=0;i<patterns.length;i++){
       if(text.indexOf(patterns[i])>=0){found=true;break}
@@ -736,7 +736,7 @@ function handleScreenshotUpload(file){
       ocrResult.innerHTML='<div class="success-msg">✅ 验证通过！识别到金额：¥3.00</div><p style="margin-top:8px;font-size:0.85rem;color:#666">正在加载你的专属推荐...</p>';
       setTimeout(function(){showResults()},1500);
     }else{
-      ocrResult.innerHTML='<div class="fail-msg">❌ 验证失败</div><p style="margin-top:6px;font-size:0.82rem;color:#999">请确保截图包含支付金额 -3.00</p>';
+      ocrResult.innerHTML='<div class="fail-msg">❌ 验证失败</div><p style="margin-top:6px;font-size:0.82rem;color:#999">请确保截图包含 -3.00</p>';
       // Reset upload area with proper event binding
       uploadArea.innerHTML='<div class="upload-placeholder" id="uploadPlaceholder"><span class="upload-icon">📷</span><span class="upload-text">重新上传截图</span><span class="upload-hint">需包含 -3.00 金额</span></div>';
       document.getElementById('uploadPlaceholder').onclick=function(){
