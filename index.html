@@ -749,7 +749,8 @@ function handleScreenshotUpload(file){
     }
   }).catch(function(err){
     ocrStatus.style.display='none';
-    ocrResult.innerHTML='<div class="fail-msg">❌ 识别失败，请重试</div>';
+    ocrResult.style.display='block';
+    ocrResult.innerHTML='<div class="fail-msg">❌ 识别失败，请重试</div><p style="margin-top:6px;font-size:0.82rem;color:#999">错误信息：'+err.message+'</p>';
     console.error('OCR error:',err);
   });
 }
